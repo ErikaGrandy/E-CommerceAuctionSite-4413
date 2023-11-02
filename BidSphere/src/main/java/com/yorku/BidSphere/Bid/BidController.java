@@ -28,6 +28,5 @@ public class BidController {
 	{
 		String str = "BidController is live.";
 		return new ResponseEntity<String>(str, HttpStatus.OK);
-
 	}
 }
