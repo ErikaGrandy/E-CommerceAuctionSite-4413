@@ -2,18 +2,14 @@ package com.yorku.BidSphere.User;
 
 public class Address {
 	
-	String addressLine;
-	String city;
-	String province;
-	String postalCode;
-	String country;
+	private String streetAddress;
+	private int streetNumber;
+	private String city;
+	private String province;
+	private String postalCode;
+	private String country;
 	
-	public String getAddressLine() {
-		return addressLine;
-	}
-	public void setAddressLine(String addressLine) {
-		this.addressLine = addressLine;
-	}
+	
 	public String getCity() {
 		return city;
 	}
@@ -37,6 +33,18 @@ public class Address {
 	}
 	public void setCountry(String country) {
 		this.country = country;
+	}
+	public String getStreetAddress() {
+		return streetAddress;
+	}
+	public void setStreetAddress(String streetAddress) {
+		this.streetAddress = streetAddress;
+	}
+	public int getStreetNumber() {
+		return streetNumber;
+	}
+	public void setStreetNumber(int streetNumber) {
+		this.streetNumber = streetNumber;
 	}
 	
 	
