@@ -2,34 +2,48 @@ package com.yorku.BidSphere.Catalog;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import javax.xml.catalog.Catalog;
+import java.util.ArrayList;
 
 @RestController
 public class CatalogController {
 	
-	CatalogService catalogService = new CatalogService();
+	CatalogService service = new CatalogService();
 
 	@GetMapping("/Catalog/getAll")
-	public ResponseEntity<String> getAllItems()
+	public ResponseEntity<ArrayList<CatalogItem>> getAllItems()
 	{
-		String str = "CatalogController is live.";
-		return new ResponseEntity<String>(str, HttpStatus.OK);
+		ArrayList<CatalogItem> list = service.getAllItems();
+
+		return ((list != null) ? new ResponseEntity<ArrayList<CatalogItem>>(list, HttpStatus.OK) :
+				new ResponseEntity<>(null, HttpStatus.OK));
 	}
 
 	@GetMapping("/Catalog/get")
-	public ResponseEntity<String> getItem()
+	public ResponseEntity<CatalogItem> getItem(@RequestParam(name="ItemID") int itemID)
 	{
-		String str = "CatalogController is live.";
-		return new ResponseEntity<String>(str, HttpStatus.OK);
+		CatalogItem item = service.getItem(itemID);
+
+		return ((item!=null) ? new ResponseEntity<CatalogItem>(item, HttpStatus.OK) : new ResponseEntity<>(null, HttpStatus.NOT_FOUND));
 	}
 
 	@PostMapping("/Catalog/add")
-	public ResponseEntity<String> addItem()
+	public ResponseEntity<CatalogItem> addItem(@RequestBody CatalogItem item)
 	{
-		String str = "CatalogController is live.";
-		return new ResponseEntity<String>(str, HttpStatus.OK);
+		try
+		{
+			System.out.println(item.getName());
+			CatalogItem addedItem = service.addItem(item);
+			return new ResponseEntity<CatalogItem>(addedItem, HttpStatus.OK);
+		}
+		catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		}
 	}
 
 }
