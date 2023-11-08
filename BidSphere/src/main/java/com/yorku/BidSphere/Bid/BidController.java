@@ -3,6 +3,7 @@ package com.yorku.BidSphere.Bid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,12 +19,17 @@ public class BidController {
 
 	//sendBid():
 	// Params: UserInfo, bid
-	@GetMapping("/Bids/sendBid")
+	//Process:
+
+
+	//To Do: Validate user input
+	@PostMapping("/Bids/sendBid")
 	public ResponseEntity<String> sendBid(@RequestBody BidRequest bidRequest)
 	{
-		System.out.println("Following info received: " + bidRequest.getUser());
-		String str = "BidController is live.";
-		return new ResponseEntity<String>(str, HttpStatus.OK);
+		System.out.println("Following info received: " + bidRequest.getUser().getFirstName());
+		System.out.println("for amount " + bidRequest.getAmount());
+
+		return new ResponseEntity<String>("All good !", HttpStatus.OK);
 
 	}
 }
