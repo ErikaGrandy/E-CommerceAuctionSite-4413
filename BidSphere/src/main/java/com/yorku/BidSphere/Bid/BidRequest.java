@@ -4,20 +4,24 @@ import com.yorku.BidSphere.User.User;
 
 public class BidRequest {
 
-    private User user;
+    //SQL row id
+    private int id;
+
+    //UserID
+    private int userID;
+
+
     private int amount;
 
-    public BidRequest(User user, int amount) {
-        this.user = user;
+    //ID of the catalog item
+    private int catalogItemID;
+
+    public BidRequest(int id, int userID, int amount, int catalogItemID) {
+        this.id = id;
+        this.userID = userID;
         this.amount = amount;
+        this.catalogItemID = catalogItemID;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
 
 }
