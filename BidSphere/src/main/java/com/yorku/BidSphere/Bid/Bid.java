@@ -1,12 +1,13 @@
 package com.yorku.BidSphere.Bid;
 
 import java.time.LocalDateTime;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
-//MODEL
-
+@Entity
 public class Bid {
 
-	int bidID;
+	@Id int bidID;
 	int itemID; // Maps to itemID in CatalogItem
 	int highestBidderID; // Maps to UserID in User
 	double highestPrice;
