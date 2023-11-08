@@ -26,10 +26,8 @@ public class BidController {
 	@PostMapping("/Bids/sendBid")
 	public ResponseEntity<String> sendBid(@RequestBody BidRequest bidRequest)
 	{
-		System.out.println("Following info received: " + bidRequest.getUser().getFirstName());
-		System.out.println("for amount " + bidRequest.getAmount());
-
-		return new ResponseEntity<String>("All good !", HttpStatus.OK);
+		String str = "BidController is live.";
+		return new ResponseEntity<String>(str, HttpStatus.OK);
 
 	}
 }
