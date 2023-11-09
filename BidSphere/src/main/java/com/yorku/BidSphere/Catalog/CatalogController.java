@@ -1,5 +1,6 @@
 package com.yorku.BidSphere.Catalog;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -11,7 +12,8 @@ import java.util.ArrayList;
 @RestController
 public class CatalogController {
 	
-	CatalogService service = new CatalogService();
+	@Autowired
+	CatalogService service;
 
 	@GetMapping("/Catalog/getAll")
 	public ResponseEntity<ArrayList<CatalogItem>> getAllItems()
