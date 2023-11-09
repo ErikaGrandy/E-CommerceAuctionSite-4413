@@ -3,6 +3,8 @@ import React from "react";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import Form from "react-bootstrap/Form";
+import { Row, Col } from "react-bootstrap";
 
 function CatItemMenu() {
   const [show, setShow] = useState(false);
@@ -20,7 +22,35 @@ function CatItemMenu() {
         <Modal.Header closeButton>
           <Modal.Title>New Catalog Item</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+        <Modal.Body>
+          <Form>
+            <Row className="mb-2">
+              <Form.Label as={Col}>Name</Form.Label>
+              <Form.Control as={Col} type="text" />
+            </Row>
+            <Row className="mb-2">
+              <Form.Label as={Col}>Current Price</Form.Label>
+              <Form.Control as={Col} type="text" />
+            </Row>
+            <Row className="mb-2">
+              <Form.Label as={Col}>Auction Type</Form.Label>
+              <Col>
+                <Form.Select size="sm">
+                  <option value="forward">Forward Bidding</option>
+                  <option value="dutch">Dutch Bidding</option>
+                </Form.Select>
+              </Col>
+            </Row>
+            <Row className="mb-2">
+              <Form.Label as={Col}>Duration</Form.Label>
+              <Form.Control as={Col} type="text" />
+            </Row>
+            <Row className="mb-2">
+              <Form.Label as={Col}>Shipping Duration</Form.Label>
+              <Form.Control as={Col} type="text" />
+            </Row>
+          </Form>
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Cancel
