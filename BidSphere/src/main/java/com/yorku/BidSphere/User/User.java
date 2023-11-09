@@ -19,6 +19,7 @@ public class User {
 	private String firstName;
 	@Column(name="lastName")
 	private String lastName;
+	
 	// address attributes
 	@Column(name="streetNumber")
 	private int streetNumber;
