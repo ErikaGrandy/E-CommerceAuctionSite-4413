@@ -3,6 +3,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import SignIn from "./Auth/SignIn";
 import { CatMenu } from "./Catalogue/CatMenu";
+import Dash from "./bidding/Dash";
 
 function App() {
   return (
@@ -10,8 +11,9 @@ function App() {
       <Container>
         <Row>
           <Col>
-            {/* <SignIn /> */}
+            <SignIn />
             <CatMenu />
+            <Dash />
           </Col>
         </Row>
       </Container>
