@@ -39,6 +39,11 @@
 			<artifactId>sqlite-jdbc</artifactId>
 			<version>3.34.0</version> <!-- use the latest version available -->
 		</dependency>
+		<dependency>
+			<groupId>com.example</groupId>
+			<artifactId>demo</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>
