@@ -1,20 +1,38 @@
 package com.yorku.BidSphere.User;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
+@Entity
 public class User {
 
 	// user attributes
-	private int id;
+	private @Id @GeneratedValue int id;
+	
+	@Column(name="userName")
 	private String userName;
+	@Column(name="password")
 	private String password;
+	@Column(name="firstName")
 	private String firstName;
+	@Column(name="lastName")
 	private String lastName;
 	// address attributes
+	@Column(name="streetNumber")
 	private int streetNumber;
+	@Column(name="streetAddress")
 	private String streetAddress;
+	@Column(name="city")
 	private String city;
+	@Column(name="province")
 	private String province;
+	@Column(name="postalCode")
 	private String postalCode;
+	@Column(name="country")
 	private String country;
+	
 
 	public int getId() {
 		return id;

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/users")
+//@RequestMapping("/Users")
 public class UserController {
 
 	private UserService userService = new UserService();
@@ -47,7 +47,7 @@ public class UserController {
 		return new ResponseEntity<>(userService.create(user), HttpStatus.CREATED);
 	}
 
-	@PutMapping("/{id")
+	@PutMapping("/{id}")
 	public ResponseEntity<User> updateUser(@PathVariable int id, @RequestBody User user) {
 		try {
 			userService.update(id, user);
