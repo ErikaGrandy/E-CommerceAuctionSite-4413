@@ -9,7 +9,7 @@ public class Address {
 	private String postalCode;
 	private String country;
 	
-	
+	// 
 	public String getCity() {
 		return city;
 	}
