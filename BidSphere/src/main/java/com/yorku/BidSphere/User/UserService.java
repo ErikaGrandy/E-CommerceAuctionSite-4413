@@ -2,6 +2,8 @@ package com.yorku.BidSphere.User;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.regex.Pattern;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +11,12 @@ import org.springframework.stereotype.Service;
 public class UserService {
 	@Autowired
 	private UserRepository userRepository;
+	private static final String PASSWORD_PATTERN = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+	private static final Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
+
+	public boolean isPasswordValid(String password) {
+		return pattern.matcher(password).matches();
+	}
 
 	public ArrayList<User> readAll() {
 		ArrayList<User> usersList = new ArrayList<>();
@@ -30,7 +38,14 @@ public class UserService {
 	}
 
 	public User create(User user) {
-		return userRepository.save(user);
+		String password = user.getPassword();
+		if (isPasswordValid(password)) {
+			return userRepository.save(user);
+		} else {
+			throw new IllegalArgumentException(
+					"Make sure your password has atleast one character, lowercase, uppercase, number");
+		}
+
 	}
 
 	public void update(int id, User user) {
@@ -39,7 +54,6 @@ public class UserService {
 			User userAttributes = existingUser.get();
 
 			userAttributes.setUserName(user.getUserName());
-			userAttributes.setPassword(user.getPassword());
 			userAttributes.setFirstName(user.getFirstName());
 			userAttributes.setLastName(user.getLastName());
 			userAttributes.setStreetNumber(user.getStreetNumber());
@@ -48,6 +62,14 @@ public class UserService {
 			userAttributes.setProvince(user.getProvince());
 			userAttributes.setPostalCode(user.getPostalCode());
 			userAttributes.setCountry(user.getCountry());
+
+			String updatePassword = user.getPassword();
+			if (isPasswordValid(updatePassword)) {
+				userAttributes.setPassword(updatePassword);
+			} else {
+				throw new IllegalArgumentException(
+						"Make sure your password has atleast one character, lowercase, uppercase, number");
+			}
 
 			userRepository.save(userAttributes);
 		} else {

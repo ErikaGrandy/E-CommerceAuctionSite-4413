@@ -43,12 +43,26 @@ public class UserController {
 
 	@PostMapping
 	public ResponseEntity<User> createUser(@RequestBody User user) {
-		return new ResponseEntity<>(userService.create(user), HttpStatus.CREATED);
+		try {
+			String password = user.getPassword();
+			if (!userService.isPasswordValid(password)) {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+			return new ResponseEntity<>(userService.create(user), HttpStatus.CREATED);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+
+		}
+
 	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<User> updateUser(@PathVariable int id, @RequestBody User user) {
 		try {
+			String password = user.getPassword();
+			if (!userService.isPasswordValid(password)) {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
 			userService.update(id, user);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (IllegalArgumentException e) {
