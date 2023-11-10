@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -30,7 +29,7 @@ public class UserController {
 		return new ResponseEntity<>(users, HttpStatus.OK);
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping("Users/{id}")
 	public ResponseEntity<User> getUserById(@PathVariable int id) {
 		User user = new User();
 		if (userService.read(id) != null) {
@@ -41,7 +40,7 @@ public class UserController {
 		}
 	}
 
-	@PostMapping
+	@PostMapping("/Users")
 	public ResponseEntity<User> createUser(@RequestBody User user) {
 		try {
 			String password = user.getPassword();
@@ -56,7 +55,7 @@ public class UserController {
 
 	}
 
-	@PutMapping("/{id}")
+	@PutMapping("Users/updateUser/{id}")
 	public ResponseEntity<User> updateUser(@PathVariable int id, @RequestBody User user) {
 		try {
 			String password = user.getPassword();
@@ -70,7 +69,7 @@ public class UserController {
 		}
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("Users/deleteUser/{id}")
 	public ResponseEntity<Void> deleteUser(@PathVariable int id) {
 		try {
 			userService.delete(id);

@@ -34,6 +34,10 @@ public class User {
 	@Column(name="country")
 	private String country;
 	
+	//forgot password attributes
+	@Column(name="securityAnswer")
+	
+	private String securityAnswer;
 
 	public int getId() {
 		return id;
@@ -121,5 +125,13 @@ public class User {
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+
+	public String getSecurityAnswer() {
+		return securityAnswer;
+	}
+
+	public void setSecurityAnswer(String securityAnswer) {
+		this.securityAnswer = securityAnswer;
 	}
 }

@@ -37,6 +37,11 @@ public class UserService {
 		return (user.isPresent() ? user.get() : null);
 	}
 
+	public User findByUsername(String username) {
+		java.util.Optional<User> userFound = userRepository.findByUsername(username);
+		return userFound.orElse(null);
+	}
+
 	public User create(User user) {
 		String password = user.getPassword();
 		if (isPasswordValid(password)) {
@@ -46,6 +51,10 @@ public class UserService {
 					"Make sure your password has atleast one character, lowercase, uppercase, number");
 		}
 
+	}
+
+	public User saveUser(User user) {
+		return userRepository.save(user);
 	}
 
 	public void update(int id, User user) {
@@ -62,6 +71,7 @@ public class UserService {
 			userAttributes.setProvince(user.getProvince());
 			userAttributes.setPostalCode(user.getPostalCode());
 			userAttributes.setCountry(user.getCountry());
+			userAttributes.setSecurityAnswer(user.getSecurityAnswer());
 
 			String updatePassword = user.getPassword();
 			if (isPasswordValid(updatePassword)) {
