@@ -37,8 +37,8 @@ public class UserService {
 		return (user.isPresent() ? user.get() : null);
 	}
 
-	public User findByUsername(String username) {
-		java.util.Optional<User> userFound = userRepository.findByUsername(username);
+	public User findByUsername(String userName) {
+		java.util.Optional<User> userFound = userRepository.findByUsername(userName);
 		return userFound.orElse(null);
 	}
 
