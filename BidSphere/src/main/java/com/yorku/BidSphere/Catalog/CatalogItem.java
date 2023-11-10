@@ -1,5 +1,6 @@
 package com.yorku.BidSphere.Catalog;
 
+import java.time.LocalTime;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -12,28 +13,28 @@ public class CatalogItem {
 
 	private @Id @GeneratedValue int itemID;
 
-	@Column(name="name")
 	private String name;
 
-	@Column(name="currentPrice")
 	private int currentPrice;
 
-	@Column(name="auctionType")
 	private String auctionType;
 
-	@Column(name="highestBidder")
-	private String highestBidder;
+	private int highestBidderID;
 
-	@Column(name="endTime")
 	private String endTime;
 
-	@Column(name="shippingTime")
 	private String shippingTime;
 
-	@Column(name="description")
 	private String description;
 
-//	private List<String> keywords;
+
+	public int getItemID() {
+		return itemID;
+	}
+
+	public void setItemID(int itemID) {
+		this.itemID = itemID;
+	}
 
 	public String getName() {
 		return name;
@@ -59,14 +60,6 @@ public class CatalogItem {
 		this.auctionType = auctionType;
 	}
 
-	public String getHighestBidder() {
-		return highestBidder;
-	}
-
-	public void setHighestBidder(String highestBidder) {
-		this.highestBidder = highestBidder;
-	}
-
 	public String getEndTime() {
 		return endTime;
 	}
@@ -90,5 +83,19 @@ public class CatalogItem {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
+	public int getHighestBidderID() {
+		return highestBidderID;
+	}
+
+	public void setHighestBidderID(int highestBidderID) {
+		this.highestBidderID = highestBidderID;
+	}
+
+	public String toString()
+	{
+		return "Catalog Item \n" + "itemID: " + this.itemID + "\n" + "name: " + this.name + "\n";
+	}
+
+
 }

@@ -1,32 +1,125 @@
 package com.yorku.BidSphere.Bid;
 
+import com.yorku.BidSphere.Catalog.CatalogController;
+import com.yorku.BidSphere.Catalog.CatalogItem;
+import com.yorku.BidSphere.Catalog.CatalogService;
+import org.apache.coyote.Response;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.NonNullFields;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
+import javax.xml.catalog.Catalog;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
+
+@Validated
 @RestController
 public class BidController {
 
-	BidService bidService = new BidService();
+	@Autowired
+	BidService service;
 
-	//End points:
-	//sendBid(): User sends bid to an auction event
-	//getAuctionStatus: User requests up to date info on the auction
+	@Autowired
+	CatalogController catalogController;
 
-
-	//sendBid():
-	// Params: UserInfo, bid
-	//Process:
-
-
-	//To Do: Validate user input
-	@PostMapping("/Bids/sendBid")
-	public ResponseEntity<String> sendBid(@RequestBody BidRequest bidRequest)
+	@GetMapping("/Bid/getAll")
+	public ResponseEntity<ArrayList<Bid>> getAllItems()
 	{
-		String str = "BidController is live.";
-		return new ResponseEntity<String>(str, HttpStatus.OK);
+		ArrayList<Bid> list = service.getAllItems();
+
+		return ((list != null) ? new ResponseEntity<ArrayList<Bid>>(list, HttpStatus.OK) :
+				new ResponseEntity<>(null, HttpStatus.OK));
 	}
+
+	@GetMapping("/Bid/get")
+	public ResponseEntity<Bid> getItem(@RequestParam(name="id") int itemID)
+	{
+		Bid item = service.getItem(itemID);
+
+		return ((item!=null) ? new ResponseEntity<Bid>(item, HttpStatus.OK) : new ResponseEntity<>(null, HttpStatus.NOT_FOUND));
+	}
+
+	@PostMapping("/Bid/add")
+	public ResponseEntity<Bid> addItem(@RequestBody Bid item)
+	{
+		try
+		{
+			Bid addedItem = service.addItem(item);
+			return new ResponseEntity<Bid>(addedItem, HttpStatus.OK);
+		}
+		catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	//Accepts a bid for a forward Auction
+	//	-> Verifies bid is sent before Auction time ends
+	//	-> Compares bid amount to the highest
+	//  -> Stores bid in db
+	//	-> Returns Auction status details
+
+
+	//To do
+	// -> Add null checks to RequestBody
+	@PostMapping("/forwardAuction/send")
+	public ResponseEntity<ForwardBidResponse> sendForwardBid(@RequestBody @Validated Bid bid)
+	{
+		if (bid == null)
+		{
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+//		System.out.println(bid.toString());
+
+		//Get CatalogItem/Auction details
+		ResponseEntity<CatalogItem> responseEntity = catalogController.getItem(bid.getCatalogItemID());
+		CatalogItem auctionItem = responseEntity.getBody();
+		if (auctionItem == null)
+		{
+			System.out.println("CatalogItem does not exist");
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+
+		//Check if Auction is open for bids
+		ZonedDateTime time = ZonedDateTime.parse(auctionItem.getEndTime());
+		if (ZonedDateTime.now().isAfter(time))
+		{
+			System.out.println(bid.toString() + "Above bid because the auction has closed. \n");
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+
+		//Store bid in db
+		service.addItem(bid);
+
+		//Compare bid to highest
+		if (auctionItem.getCurrentPrice() < bid.getAmount())
+		{
+			auctionItem.setCurrentPrice(bid.getAmount());
+			auctionItem.setHighestBidderID(bid.getUserID());
+			//If itemID is set in the object, .save will update instead of create
+			catalogController.addItem(auctionItem);
+		}
+
+
+		ForwardBidResponse bidResponse = new ForwardBidResponse(auctionItem.getCurrentPrice(), auctionItem.getHighestBidderID());
+		return new ResponseEntity<ForwardBidResponse>(bidResponse, HttpStatus.OK);
+	}
+
+	@GetMapping("/testing")
+	public void test()
+	{
+		ZonedDateTime time = ZonedDateTime.now().plusMinutes(10);
+		System.out.println(time.toString());
+	}
+
+
+
 }
