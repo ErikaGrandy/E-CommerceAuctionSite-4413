@@ -23,7 +23,7 @@ public class CatalogItem {
 
 	private String endTime;
 
-	private String shippingTime;
+	private int shippingTime;
 
 	private String description;
 
@@ -68,11 +68,11 @@ public class CatalogItem {
 		this.endTime = endTime;
 	}
 
-	public String getShippingTime() {
+	public int getShippingTime() {
 		return shippingTime;
 	}
 
-	public void setShippingTime(String shippingTime) {
+	public void setShippingTime(int shippingTime) {
 		this.shippingTime = shippingTime;
 	}
 
