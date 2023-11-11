@@ -39,13 +39,13 @@ public class UserService {
 
 	public User create(User user) {
 		String password = user.getPassword();
-		if (isPasswordValid(password)) {
-			return userRepository.save(user);
-		} else {
-			throw new IllegalArgumentException(
-					"Make sure your password has atleast one character, lowercase, uppercase, number");
-		}
-
+//		if (isPasswordValid(password)) {
+//			return userRepository.save(user);
+//		} else {
+//			throw new IllegalArgumentException(
+//					"Make sure your password has atleast one character, lowercase, uppercase, number");
+//		}
+		return userRepository.save(user);
 	}
 
 	public void update(int id, User user) {
@@ -83,6 +83,43 @@ public class UserService {
 		} else {
 			throw new IllegalArgumentException("User not found with id: " + id);
 		}
+	}
+
+	public User verify(String username, String password)
+	{
+		User user = userRepository.getUserByUserNameAndPassword(username, password);
+		if (user == null)
+		{
+			return null;
+		}
+
+		if (!user.getPassword().equals(password))
+		{
+			return null;
+		}
+		return user;
+	}
+
+	public boolean checkExisting(String username)
+	{
+		int count = userRepository.countUserByUserName(username);
+		if (count >= 1)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	public User updatePassword(String username, int streetNumber, String newPassword)
+	{
+		User user = userRepository.getUserByUserName(username);
+		if (user == null || user.getStreetNumber()!=streetNumber)
+		{
+			return null;
+		}
+		user.setPassword(newPassword);
+		user = userRepository.save(user);
+		return user;
 	}
 
 }

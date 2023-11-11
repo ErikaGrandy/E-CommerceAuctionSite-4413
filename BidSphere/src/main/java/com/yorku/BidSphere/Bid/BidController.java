@@ -137,8 +137,8 @@ public class BidController {
 	@GetMapping("/testing")
 	public void test()
 	{
-		ZonedDateTime time = ZonedDateTime.now().plusMinutes(10);
-		System.out.println(time.toString());
+		ZonedDateTime time = ZonedDateTime.now();
+		System.out.println("Time now in ISO format: " + time.toString());
 	}
 
 }
