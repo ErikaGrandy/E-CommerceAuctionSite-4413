@@ -30,18 +30,18 @@ public class UserController {
 		return new ResponseEntity<>(users, HttpStatus.OK);
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping("/Users/{id}")
 	public ResponseEntity<User> getUserById(@PathVariable int id) {
-		User user = new User();
+		
 		if (userService.read(id) != null) {
-			return new ResponseEntity<>(user, HttpStatus.OK);
+			return new ResponseEntity<>(userService.read(id), HttpStatus.OK);
 
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 
-	@PostMapping
+	@PostMapping("/Users")
 	public ResponseEntity<User> createUser(@RequestBody User user) {
 		try {
 			String password = user.getPassword();
@@ -56,7 +56,7 @@ public class UserController {
 
 	}
 
-	@PutMapping("/{id}")
+	@PutMapping("/Users/{id}")
 	public ResponseEntity<User> updateUser(@PathVariable int id, @RequestBody User user) {
 		try {
 			String password = user.getPassword();
@@ -70,7 +70,7 @@ public class UserController {
 		}
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/Users/{id}")
 	public ResponseEntity<Void> deleteUser(@PathVariable int id) {
 		try {
 			userService.delete(id);
