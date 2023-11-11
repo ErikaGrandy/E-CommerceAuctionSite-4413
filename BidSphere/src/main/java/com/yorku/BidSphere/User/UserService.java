@@ -1,46 +1,88 @@
 package com.yorku.BidSphere.User;
 
-import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Iterator;
+import java.util.regex.Pattern;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
 public class UserService {
+	@Autowired
+	private UserRepository userRepository;
+	private static final String PASSWORD_PATTERN = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+	private static final Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
 
-	public List<User> readAll() {
-		String sql = "SELECT userName, password, firstName, lastName, streetAddress, streetNumber, city, province, postalCode, country FROM users";
+	public boolean isPasswordValid(String password) {
+		return pattern.matcher(password).matches();
+	}
 
-		List<User> users = new ArrayList<>();
+	public ArrayList<User> readAll() {
+		ArrayList<User> usersList = new ArrayList<>();
+		Iterable<User> iteratorUsersList = userRepository.findAll();
+		if (iteratorUsersList != null) {
+			Iterator<User> iterator = iteratorUsersList.iterator();
+			while (iterator.hasNext()) {
+				usersList.add(iterator.next());
+			}
+			return usersList;
+		} else {
+			return null;
+		}
+	}
 
-		try (Connection conn = DatabaseConnection.connect();
-				Statement stmt = conn.createStatement();
-				ResultSet rs = stmt.executeQuery(sql)) {
+	public User read(int id) {
+		java.util.Optional<User> user = userRepository.findById(id);
+		return (user.isPresent() ? user.get() : null);
+	}
 
-			while (rs.next()) {
-				User user = new User();
-				Address address = new Address();
-				user.setUserName(rs.getString("userName"));
-				user.setPassword(rs.getString("password"));
-				user.setFirstName(rs.getString("firstName"));
-				user.setLastName(rs.getString("lastName"));
-				address.setStreetAddress(rs.getString("streetAddress"));
-				address.setStreetNumber(rs.getInt("streetNumber"));
-				address.setCity(rs.getString("city"));
-				address.setProvince(rs.getString("province"));
-				address.setPostalCode(rs.getString("postalCode"));
-				address.setCountry(rs.getString("country"));
+	public User create(User user) {
+		String password = user.getPassword();
+		if (isPasswordValid(password)) {
+			return userRepository.save(user);
+		} else {
+			throw new IllegalArgumentException(
+					"Make sure your password has atleast one character, lowercase, uppercase, number");
+		}
 
-				user.setAddress(address);
-				
-				users.add(user);
+	}
 
+	public void update(int id, User user) {
+		java.util.Optional<User> existingUser = userRepository.findById(id);
+		if (existingUser.isPresent()) {
+			User userAttributes = existingUser.get();
+
+			userAttributes.setUserName(user.getUserName());
+			userAttributes.setFirstName(user.getFirstName());
+			userAttributes.setLastName(user.getLastName());
+			userAttributes.setStreetNumber(user.getStreetNumber());
+			userAttributes.setStreetAddress(user.getStreetAddress());
+			userAttributes.setCity(user.getCity());
+			userAttributes.setProvince(user.getProvince());
+			userAttributes.setPostalCode(user.getPostalCode());
+			userAttributes.setCountry(user.getCountry());
+
+			String updatePassword = user.getPassword();
+			if (isPasswordValid(updatePassword)) {
+				userAttributes.setPassword(updatePassword);
+			} else {
+				throw new IllegalArgumentException(
+						"Make sure your password has atleast one character, lowercase, uppercase, number");
 			}
 
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
+			userRepository.save(userAttributes);
+		} else {
+			throw new IllegalArgumentException("No such id:	" + id);
 		}
-		return users;
+	}
 
+	public void delete(int id) {
+		if (userRepository.existsById(id)) {
+			userRepository.deleteById(id);
+		} else {
+			throw new IllegalArgumentException("User not found with id: " + id);
+		}
 	}
 
 }
