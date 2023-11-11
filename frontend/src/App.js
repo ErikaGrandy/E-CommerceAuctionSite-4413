@@ -11,9 +11,9 @@ function App() {
       <Container>
         <Row>
           <Col>
-            <SignIn />
+            {/* <SignIn /> */}
             <CatMenu />
-            <Dash />
+            {/* <Dash /> */}
           </Col>
         </Row>
       </Container>

@@ -1,6 +1,7 @@
 const ENDPOINTS = {
   CATALOGUE: {
     GETALLITEMS: "Catalog/getAll",
+    ADDITEM: "Catalog/add",
   },
 };
 
