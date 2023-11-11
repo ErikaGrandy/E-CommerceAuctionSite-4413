@@ -118,7 +118,6 @@ public class BidController {
 		return new ResponseEntity<ForwardBidResponse>(bidResponse, HttpStatus.OK);
 	}
 
-
 	//Returns the highest bidder amount and bidder id for an auction
 	@GetMapping("/forwardAuction/getStatus")
 	public ResponseEntity<ForwardBidResponse> getAuctionStatus(@RequestParam(name="id") int id)
