@@ -27,6 +27,7 @@ public class CatalogItem {
 
 	private String description;
 
+	private int expeditedShippingCost;
 
 	public int getItemID() {
 		return itemID;
@@ -84,12 +85,24 @@ public class CatalogItem {
 		this.description = description;
 	}
 
+	public String toString()
+	{
+		return "Catalog Item \n" + "itemID: " + this.itemID + "\n" + "name: " + this.name + "\n";
+
 	public int getHighestBidderID() {
 		return highestBidderID;
 	}
 
 	public void setHighestBidderID(int highestBidderID) {
 		this.highestBidderID = highestBidderID;
+	}
+
+	public int getExpeditedShippingCost() {
+		return expeditedShippingCost;
+	}
+
+	public void setExpeditedShippingCost(int expeditedShippingCost) {
+		this.expeditedShippingCost = expeditedShippingCost;
 	}
 
 	public String toString()
