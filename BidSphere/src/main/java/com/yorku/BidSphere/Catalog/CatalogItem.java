@@ -26,6 +26,8 @@ public class CatalogItem {
 	private int shippingTime;
 
 	private String description;
+	
+	private int expeditedShippingCost;
 
 
 	public int getItemID() {
@@ -90,6 +92,14 @@ public class CatalogItem {
 
 	public void setHighestBidderID(int highestBidderID) {
 		this.highestBidderID = highestBidderID;
+	}
+
+	public int getExpeditedShippingCost() {
+		return expeditedShippingCost;
+	}
+
+	public void setExpeditedShippingCost(int expeditedShippingCost) {
+		this.expeditedShippingCost = expeditedShippingCost;
 	}
 
 	public String toString()
