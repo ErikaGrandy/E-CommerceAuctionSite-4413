@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -44,6 +45,13 @@ public class BidService {
     {
         Optional<Bid> item = repo.findById(itemID);
         return (item.isPresent() ? item.get() : null);
+    }
+
+    public ArrayList<Bid> getBidsbyCatID(int id)
+    {
+        ArrayList<Bid> list = repo.findBidByCatalogItemID(id);
+        System.out.println("Bids by catalog ID size: " + list.size());
+        return list;
     }
 
 }

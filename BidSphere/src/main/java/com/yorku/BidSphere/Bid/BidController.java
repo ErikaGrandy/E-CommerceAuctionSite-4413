@@ -59,19 +59,24 @@ public class BidController {
 		}
 	}
 
+	@GetMapping("/Bid/getByCatalogue")
+	public ResponseEntity<ArrayList<Bid>> getBidsByCatalogue(@RequestParam(name="id") int id)
+	{
+		if (id == 0)
+		{
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		ArrayList<Bid> list = service.getBidsbyCatID(id);
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+
 	//Accepts a bid for a forward Auction
-	//	-> Verifies bid is sent before Auction time ends
-	//	-> Compares bid amount to the highest
-	//  -> Stores bid in db
-	//	-> Returns Auction status details
-
-
 	//To do
 	// -> Add null checks to RequestBody
 	@PostMapping("/forwardAuction/send")
 	public ResponseEntity<ForwardBidResponse> sendForwardBid(@RequestBody @Validated Bid bid)
 	{
-		if (bid == null)
+		if (bid == null || bid.getAmount()==0 || bid.getCatalogItemID()==0 || bid.getUserID()==0)
 		{
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
@@ -113,13 +118,28 @@ public class BidController {
 		return new ResponseEntity<ForwardBidResponse>(bidResponse, HttpStatus.OK);
 	}
 
+
+	//Returns the highest bidder amount and bidder id for an auction
+	@GetMapping("/forwardAuction/getStatus")
+	public ResponseEntity<ForwardBidResponse> getAuctionStatus(@RequestParam(name="id") int id)
+	{
+		ResponseEntity<CatalogItem> responseEntity = catalogController.getItem(id);
+		CatalogItem auctionItem = responseEntity.getBody();
+		if (auctionItem == null)
+		{
+			System.out.println("CatalogItem does not exist");
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+		ForwardBidResponse res = new ForwardBidResponse(auctionItem.getCurrentPrice(), auctionItem.getHighestBidderID());
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+
 	@GetMapping("/testing")
 	public void test()
 	{
 		ZonedDateTime time = ZonedDateTime.now().plusMinutes(10);
 		System.out.println(time.toString());
 	}
-
-
 
 }
