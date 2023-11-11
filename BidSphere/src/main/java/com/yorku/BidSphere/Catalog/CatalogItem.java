@@ -11,7 +11,9 @@ import jakarta.persistence.Id;
 @Entity
 public class CatalogItem {
 
-	private @Id @GeneratedValue int itemID;
+	private @Id
+	@GeneratedValue
+	int itemID;
 
 	private String name;
 
@@ -28,6 +30,11 @@ public class CatalogItem {
 	private String description;
 
 	private int expeditedShippingCost;
+
+
+	public String toString() {
+		return "Catalog Item \n" + "itemID: " + this.itemID + "\n" + "name: " + this.name + "\n";
+	}
 
 	public int getItemID() {
 		return itemID;
@@ -61,6 +68,14 @@ public class CatalogItem {
 		this.auctionType = auctionType;
 	}
 
+	public int getHighestBidderID() {
+		return highestBidderID;
+	}
+
+	public void setHighestBidderID(int highestBidderID) {
+		this.highestBidderID = highestBidderID;
+	}
+
 	public String getEndTime() {
 		return endTime;
 	}
@@ -85,18 +100,6 @@ public class CatalogItem {
 		this.description = description;
 	}
 
-	public String toString()
-	{
-		return "Catalog Item \n" + "itemID: " + this.itemID + "\n" + "name: " + this.name + "\n";
-
-	public int getHighestBidderID() {
-		return highestBidderID;
-	}
-
-	public void setHighestBidderID(int highestBidderID) {
-		this.highestBidderID = highestBidderID;
-	}
-
 	public int getExpeditedShippingCost() {
 		return expeditedShippingCost;
 	}
@@ -104,11 +107,4 @@ public class CatalogItem {
 	public void setExpeditedShippingCost(int expeditedShippingCost) {
 		this.expeditedShippingCost = expeditedShippingCost;
 	}
-
-	public String toString()
-	{
-		return "Catalog Item \n" + "itemID: " + this.itemID + "\n" + "name: " + this.name + "\n";
-	}
-
-
 }
