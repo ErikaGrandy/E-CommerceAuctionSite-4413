@@ -7,10 +7,12 @@ import Axios from "../axios";
 import ENDPOINTS from "../endpoints";
 import AddForwardCatMenu from "./components/AddForwardCatMenu";
 import { userContext } from "../App";
+import { ZonedDateTime } from "@js-joda/core";
 
 export const CatMenu = () => {
   const headers = [
     "Item ID",
+    "Status",
     "Name",
     "Current Price",
     "Auction Type",
@@ -76,9 +78,13 @@ export const CatMenu = () => {
             </thead>
             <tbody>
               {forwardData.map((row, i) => {
+                const status = ZonedDateTime.now().isBefore(
+                  ZonedDateTime.parse(row.endTime)
+                );
                 return (
                   <tr>
                     <th>{row.itemID}</th>
+                    <th>{status ? "Active" : "Ended"}</th>
                     <th>{row.name}</th>
                     <th>{row.currentPrice}</th>
                     <th>{row.auctionType}</th>

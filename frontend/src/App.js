@@ -16,6 +16,7 @@ export const userContext = createContext();
 
 function App() {
   const [user, setUser] = useState({
+    id: 0,
     userName: "",
     password: "",
     firstName: "",
@@ -29,6 +30,7 @@ function App() {
   });
 
   const [auction, setAuction] = useState({
+    itemID: 0,
     name: "",
     currentPrice: 0,
     auctionType: "",

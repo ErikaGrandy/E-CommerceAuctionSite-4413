@@ -3,6 +3,7 @@ import ForwardDash from "./ForwardDash";
 const MainDash = () => {
   return (
     <div>
+      {" "}
       <ForwardDash />
     </div>
   );
