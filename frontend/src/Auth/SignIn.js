@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Col, Row } from "react-bootstrap";
@@ -6,6 +6,7 @@ import Alert from "react-bootstrap/Alert";
 import { useState } from "react";
 import Axios from "../axios";
 import ENDPOINTS from "../endpoints";
+import { userContext } from "../App";
 
 const SignIn = () => {
   const [username, setUsername] = useState("");
@@ -13,11 +14,9 @@ const SignIn = () => {
 
   const [showError, setShowError] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const { user, setUser } = useContext(userContext);
 
-  const handleSubmission = () => {
-    console.log("Username: " + username);
-    console.log("Password: " + password);
-
+  const HandleSubmission = () => {
     Axios.get(ENDPOINTS.USER.VERIFY, {
       params: {
         username: username,
@@ -25,12 +24,12 @@ const SignIn = () => {
       },
     })
       .then((res) => {
-        if (res.status == 200) {
-          setShowError(false);
-          setShowSuccess(true);
-        }
+        setShowError(false);
+        setShowSuccess(true);
+        setUser(res.data);
       })
       .catch((err) => {
+        console.log(err);
         setShowError(true);
         setShowSuccess(false);
       });
@@ -70,7 +69,7 @@ const SignIn = () => {
         </Row>
 
         <br></br>
-        <Button variant="primary" onClick={handleSubmission}>
+        <Button variant="primary" onClick={HandleSubmission}>
           Submit
         </Button>
       </Form>
