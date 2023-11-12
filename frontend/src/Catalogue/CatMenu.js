@@ -22,7 +22,20 @@ export const CatMenu = () => {
     "Select",
   ];
 
+  const dutchHeaders = [
+    "Item ID",
+    "Status",
+    "Name",
+    "Current Price",
+    "Auction Type",
+    "End Time",
+    "Shipping Time",
+    "Select",
+  ];
+
   const [forwardData, setForwardData] = useState([]);
+
+  const [dutchData, setDutchData] = useState([]);
 
   const [refresh, toggleRefresh] = useState(false);
 
@@ -110,7 +123,51 @@ export const CatMenu = () => {
             </tbody>
           </Table>
         </div>
+        <div>
+          <h1>Dutch Auctions</h1>
+          {/* <AddForwardCatMenu refresh={refresh} toggleRefresh={toggleRefresh} /> */}
+          <Table striped>
+            <thead>
+              <tr>
+                {dutchHeaders.map((header) => {
+                  return <th>{header}</th>;
+                })}
+              </tr>
+            </thead>
+            <tbody>
+              {dutchData.map((row, i) => {
+                const status = ZonedDateTime.now().isBefore(
+                  ZonedDateTime.parse(row.endTime)
+                );
 
+                return (
+                  <tr>
+                    <th>{row.itemID}</th>
+                    <th>{status ? "Active" : "Ended"}</th>
+                    <th>{row.name}</th>
+                    <th>{row.currentPrice}</th>
+                    <th>{row.auctionType}</th>
+                    <th>{row.highestBidderID}</th>
+                    <th>{row.endTime}</th>
+                    <th>{row.shippingTime}</th>
+                    <th>
+                      <Form.Check
+                        type={"radio"}
+                        name="group1"
+                        label={i}
+                        value={JSON.stringify(row)}
+                        onClick={(e) => {
+                          // console.log(e.target.value);
+                          setSelected(e.target.value);
+                        }}
+                      />
+                    </th>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </Table>
+        </div>
         <Button variant="primary" onClick={handleSubmission}>
           Bid
         </Button>
