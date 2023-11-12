@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import com.yorku.BidSphere.User.User;
 
 import javax.xml.catalog.Catalog;
 import java.util.ArrayList;
@@ -51,8 +52,30 @@ public class DutchCatalogController {
 		}
 	}
 	
-	@PutMapping("/DutchCatalog/updatePrice/{itemID}/{userID}")
-	public ResponseEntity<DutchCatalogItem> updatePrice(@PathVariable int itemID,@PathVariable int userID)
+//	@PutMapping("/DutchCatalog/updatePrice/{itemID}/{userID}")
+//	public ResponseEntity<DutchCatalogItem> updatePrice(@PathVariable int itemID,@PathVariable int userID)
+//	{
+//		try
+//		{
+//			boolean verified = service.verifySeller(itemID, userID);
+//			if(verified) {
+//				DutchCatalogItem item = service.decrementPrice(itemID);
+//				return new ResponseEntity<DutchCatalogItem>(item, HttpStatus.OK);
+//			}else {
+//				System.out.print("Only Seller can decrement price \n");
+//				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+//
+//			}
+//			
+//		}
+//		catch (Exception e)
+//		{
+//			System.out.println(e.getMessage());
+//			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+//		}
+//	}
+	@PutMapping("/DutchCatalog/updatePrice")
+	public ResponseEntity<DutchCatalogItem> updatePrice1(@RequestParam int itemID, @RequestParam int userID)
 	{
 		try
 		{
@@ -73,6 +96,7 @@ public class DutchCatalogController {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
 	}
+	
 	
 
 }

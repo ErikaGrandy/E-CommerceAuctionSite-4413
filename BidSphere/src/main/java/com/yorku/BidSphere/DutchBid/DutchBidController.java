@@ -50,7 +50,7 @@ public class DutchBidController {
 	// checks to see if the status of the item is available
 	@PostMapping("/DutchBid/buy")
 	public ResponseEntity<DutchBid> addItem(@RequestBody DutchBid bid) {
-		if (bid == null || bid.getAmount() == 0 || bid.getCatalogItemID() == 0 || bid.getUserID() == 0) {
+		if (bid == null || bid.getCatalogItemID() == 0 || bid.getUserID() == 0) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
@@ -63,7 +63,7 @@ public class DutchBidController {
 		}
 		
 		// Check if Item has been sold
-		if (auctionItem.isAvailible()==false) {
+		if (auctionItem.isAvailable()==false) {
 			System.out.println("CatalogItem is unavailible. \n");
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
@@ -74,17 +74,11 @@ public class DutchBidController {
 			System.out.println(bid.toString() + "Above bid because the auction has closed. \n");
 			
 			// expire the item and set it to unavailable
-			auctionItem.setAvailible(false);
+			auctionItem.setAvailable(false);
 			// updating the auctionItem with unavailable status
 			dutchCatalogController.addItem(auctionItem);
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-		}
-		
-		// Check if bid amount is equal to asking price
-		if(auctionItem.getPrice() > bid.getAmount()) {
-			System.out.println(bid.toString() + "Bid is too low. \n");
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
 		// this is the winning bid. Store it in the db
@@ -96,7 +90,7 @@ public class DutchBidController {
 		System.out.println(":" + bid.getUserID());
 		System.out.println(auctionItem.getBuyerID());
 
-		auctionItem.setAvailible(false);
+		auctionItem.setAvailable(false);
 		// updating the auctionItem with the buyerID
 		dutchCatalogController.addItem(auctionItem);
 		

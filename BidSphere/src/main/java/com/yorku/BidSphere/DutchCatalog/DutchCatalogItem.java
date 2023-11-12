@@ -23,6 +23,8 @@ public class DutchCatalogItem {
 	
 	private int lowestPrice;
 
+	private String auctionType;
+
 	private String endTime;
 
 	private int shippingTime;
@@ -31,7 +33,7 @@ public class DutchCatalogItem {
 
 	private int expeditedShippingCost;
 	
-	private boolean availible;
+	private boolean available;
 	
 	private int sellerID;
 	
@@ -121,12 +123,12 @@ public class DutchCatalogItem {
 		}
 	}
 
-	public boolean isAvailible() {
-		return availible;
+	public boolean isAvailable() {
+		return available;
 	}
 
-	public void setAvailible(boolean availible) {
-		this.availible = availible;
+	public void setAvailable(boolean available) {
+		this.available = available;
 	}
 
 	public int getSellerID() {
@@ -135,6 +137,14 @@ public class DutchCatalogItem {
 
 	public void setSellerID(int sellerID) {
 		this.sellerID = sellerID;
+	}
+
+	public String getAuctionType() {
+		return auctionType;
+	}
+
+	public void setAuctionType(String auctionType) {
+		this.auctionType = auctionType;
 	}
 
 
