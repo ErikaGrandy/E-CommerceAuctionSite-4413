@@ -81,6 +81,7 @@ export const CatMenu = () => {
                 const status = ZonedDateTime.now().isBefore(
                   ZonedDateTime.parse(row.endTime)
                 );
+
                 return (
                   <tr>
                     <th>{row.itemID}</th>
@@ -88,7 +89,7 @@ export const CatMenu = () => {
                     <th>{row.name}</th>
                     <th>{row.currentPrice}</th>
                     <th>{row.auctionType}</th>
-                    <th>{row.highestBidder}</th>
+                    <th>{row.highestBidderID}</th>
                     <th>{row.endTime}</th>
                     <th>{row.shippingTime}</th>
                     <th>

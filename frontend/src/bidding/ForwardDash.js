@@ -10,32 +10,19 @@ import { ChronoUnit, ZonedDateTime } from "@js-joda/core";
 import { useTimer } from "react-timer-hook";
 import Timer from "./Timer";
 import ENDPOINTS from "../endpoints";
+import Payment from "../Payment/Payment";
 
 function ForwardDash() {
   const data = ["Bid 1", "Bid 2", "Bid 3"];
 
-  const { user, auction } = useContext(userContext);
+  const { user, auction, setAuction } = useContext(userContext);
 
   const [timer, setTimer] = useState(false);
   const [timerAmount, setTimerAmount] = useState();
   const [pastBids, setPastBids] = useState();
   const [highest, setHighest] = useState(["", 0]);
-  const [startBidding, setStartBidding] = useState(false);
+  const [biddingActive, setBiddingActive] = useState(false);
   const [bidAmount, setBidAmount] = useState(0);
-  //Determines whether the dash board can be viewed
-  useEffect(() => {
-    if (
-      auction !== null &&
-      auction.name !== "" &&
-      user !== null &&
-      user.userName !== "" &&
-      ZonedDateTime.now().isBefore(ZonedDateTime.parse(auction.endTime))
-    ) {
-      setStartBidding(true);
-    } else {
-      setStartBidding(false);
-    }
-  }, []);
 
   const refreshBids = () => {
     Axios.get(ENDPOINTS.BID.GETBIDFROMCATID, {
@@ -50,22 +37,51 @@ function ForwardDash() {
         console.log(err);
       });
 
-    Axios.get(ENDPOINTS.BID.GETSTATUS, {
+    Axios.get(ENDPOINTS.CATALOGUE.GETITEM, {
       params: {
         id: auction.itemID,
       },
     })
       .then((res) => {
-        setHighest([res.data.highestBidderID, res.data.highestBid]);
+        setAuction(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  //Preps dashboard props such as timer and past bids history
+  const submitBid = (bid) => {
+    Axios.post(ENDPOINTS.BID.SENDBID, {
+      userID: user.id,
+      amount: bidAmount,
+      catalogItemID: auction.itemID,
+    })
+      .then((res) => {
+        refreshBids();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  //Controls bid dashboard visibility
   useEffect(() => {
-    if (startBidding === true) {
+    if (
+      auction !== null &&
+      auction.name !== "" &&
+      user !== null &&
+      user.userName !== "" &&
+      ZonedDateTime.now().isBefore(ZonedDateTime.parse(auction.endTime))
+    ) {
+      setBiddingActive(true);
+    } else {
+      setBiddingActive(false);
+    }
+    refreshBids();
+  }, []);
+  //Preps dashboard timer and bids details
+  useEffect(() => {
+    if (biddingActive === true) {
       console.log(
         "Duration of the auction: ",
         ZonedDateTime.now().until(
@@ -85,29 +101,17 @@ function ForwardDash() {
       setTimer(true);
       refreshBids();
     }
-  }, [startBidding]);
-
-  const submitBid = (bid) => {
-    Axios.post(ENDPOINTS.BID.SENDBID, {
-      userID: user.id,
-      amount: bidAmount,
-      catalogItemID: auction.itemID,
-    })
-      .then((res) => {
-        refreshBids();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  }, [biddingActive]);
 
   return (
     <div>
-      {startBidding && (
+      {biddingActive && (
         <>
           <h1> Bid Dashboard</h1>
           <Row className="mb-3">
-            {timer && <Timer expiryTimestamp={timerAmount} />}
+            {timer && (
+              <Timer expiryTimestamp={timerAmount} trigger={setBiddingActive} />
+            )}
           </Row>
           <Row>
             <Row>
@@ -175,6 +179,32 @@ function ForwardDash() {
             </Col>
           </Row>
         </>
+      )}
+
+      {!biddingActive && auction.highestBidderID === user.id && <Payment />}
+
+      {!biddingActive && (
+        <Row>
+          <Col>
+            <h4>Auction Summary</h4>
+            <h5>
+              Highest Bidder ID: {auction.highestBidderID} | Highest Bid Amount:{" "}
+              {auction.currentPrice}
+            </h5>
+            <br></br>
+            <h4>Bid History</h4>
+            <ListGroup>
+              {pastBids !== undefined &&
+                pastBids.map((row) => {
+                  return (
+                    <ListGroup.Item>
+                      User {row.userID} | {row.amount}
+                    </ListGroup.Item>
+                  );
+                })}
+            </ListGroup>
+          </Col>
+        </Row>
       )}
     </div>
   );

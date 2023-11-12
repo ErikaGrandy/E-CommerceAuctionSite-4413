@@ -1,7 +1,7 @@
 import React from "react";
 import { useTimer } from "react-timer-hook";
 
-function Timer({ expiryTimestamp }) {
+function Timer({ expiryTimestamp, trigger }) {
   const {
     totalSeconds,
     seconds,
@@ -15,7 +15,7 @@ function Timer({ expiryTimestamp }) {
     restart,
   } = useTimer({
     expiryTimestamp,
-    onExpire: () => console.warn("onExpire called"),
+    onExpire: () => trigger(false),
   });
 
   return (

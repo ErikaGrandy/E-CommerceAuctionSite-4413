@@ -1,6 +1,7 @@
 const ENDPOINTS = {
   CATALOGUE: {
     GETALLITEMS: "Catalog/getAll",
+    GETITEM: "/Catalog/get",
     ADDITEM: "Catalog/add",
   },
   USER: {
@@ -12,6 +13,10 @@ const ENDPOINTS = {
     GETBIDFROMCATID: "/Bid/getByCatalogue",
     SENDBID: "/forwardAuction/send",
     GETSTATUS: "/forwardAuction/getStatus",
+  },
+  PAYMENT: {
+    ADDPAYMENT: "/Payment/Add",
+    CHECKPAYMENT: "Payment/getbyUserIDItemID",
   },
 };
 
