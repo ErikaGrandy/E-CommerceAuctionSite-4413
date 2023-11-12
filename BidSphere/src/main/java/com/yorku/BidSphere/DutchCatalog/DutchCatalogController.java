@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+
 import javax.xml.catalog.Catalog;
 import java.util.ArrayList;
 
@@ -33,6 +34,7 @@ public class DutchCatalogController {
 		return ((item!=null) ? new ResponseEntity<DutchCatalogItem>(item, HttpStatus.OK) : new ResponseEntity<>(null, HttpStatus.NOT_FOUND));
 	}
 	
+	
 	@PostMapping("/DutchCatalog/add")
 	public ResponseEntity<DutchCatalogItem> addItem(@RequestBody DutchCatalogItem item)
 	{
@@ -49,14 +51,21 @@ public class DutchCatalogController {
 		}
 	}
 	
-	@PutMapping("/DutchCatalog/updatePrice/{itemID}")
-	public ResponseEntity<DutchCatalogItem> updatePrice(@PathVariable int itemID)
+	@PutMapping("/DutchCatalog/updatePrice/{itemID}/{userID}")
+	public ResponseEntity<DutchCatalogItem> updatePrice(@PathVariable int itemID,@PathVariable int userID)
 	{
 		try
 		{
-			DutchCatalogItem item = service.decrementPrice(itemID);
+			boolean verified = service.verifySeller(itemID, userID);
+			if(verified) {
+				DutchCatalogItem item = service.decrementPrice(itemID);
+				return new ResponseEntity<DutchCatalogItem>(item, HttpStatus.OK);
+			}else {
+				System.out.print("Only Seller can decrement price \n");
+				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+
+			}
 			
-			return new ResponseEntity<DutchCatalogItem>(item, HttpStatus.OK);
 		}
 		catch (Exception e)
 		{
@@ -64,5 +73,6 @@ public class DutchCatalogController {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
 	}
+	
 
 }

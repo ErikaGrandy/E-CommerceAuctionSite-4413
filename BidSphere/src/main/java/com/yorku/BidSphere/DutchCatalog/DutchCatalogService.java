@@ -54,5 +54,20 @@ public class DutchCatalogService {
         return dutchItem;
         
     }
+    public DutchCatalogItem itemSold(int itemID) {
+    	
+        Optional<DutchCatalogItem> item = repo.findById(itemID);
+        DutchCatalogItem dutchItem = item.get();
+        dutchItem.setAvailible(false);
+        repo.save(dutchItem);
+    	return dutchItem;
+    }
+
+	public boolean verifySeller(int itemID, int userID) {
+		  Optional<DutchCatalogItem> item = repo.findById(itemID);
+	      DutchCatalogItem dutchItem = item.get();
+	      
+		return (dutchItem.getSellerID() == userID);
+	}
 
 }

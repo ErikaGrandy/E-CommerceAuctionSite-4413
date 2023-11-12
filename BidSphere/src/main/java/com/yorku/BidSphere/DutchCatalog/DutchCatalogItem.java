@@ -17,7 +17,7 @@ public class DutchCatalogItem {
 
 	private int price;
 
-	private int BuyerID;
+	private int buyerID;
 	
 	private int decrementStep;
 	
@@ -30,6 +30,10 @@ public class DutchCatalogItem {
 	private String description;
 
 	private int expeditedShippingCost;
+	
+	private boolean availible;
+	
+	private int sellerID;
 	
 	public int getItemID() {
 		return itemID;
@@ -56,11 +60,11 @@ public class DutchCatalogItem {
 	}
 
 	public int getBuyerID() {
-		return BuyerID;
+		return buyerID;
 	}
 
 	public void setBuyerID(int buyerID) {
-		BuyerID = buyerID;
+		this.buyerID = buyerID;
 	}
 
 	public int getDecrementStep() {
@@ -112,9 +116,25 @@ public class DutchCatalogItem {
 	}
 	
 	public void lowerPrice() {
-		if(this.price - this.decrementStep != this.lowestPrice) {
+		if(this.price - this.decrementStep >= this.lowestPrice) {
 			this.price = price - this.decrementStep;
 		}
+	}
+
+	public boolean isAvailible() {
+		return availible;
+	}
+
+	public void setAvailible(boolean availible) {
+		this.availible = availible;
+	}
+
+	public int getSellerID() {
+		return sellerID;
+	}
+
+	public void setSellerID(int sellerID) {
+		this.sellerID = sellerID;
 	}
 
 
