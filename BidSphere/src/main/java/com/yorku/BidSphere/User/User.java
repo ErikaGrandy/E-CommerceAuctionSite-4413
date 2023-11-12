@@ -9,7 +9,7 @@ import jakarta.persistence.Id;
 public class User {
 	// user attributes
 	private @Id @GeneratedValue int id;
-	
+
 	@Column(name="userName")
 	private String userName;
 	@Column(name="password")
@@ -18,7 +18,7 @@ public class User {
 	private String firstName;
 	@Column(name="lastName")
 	private String lastName;
-	
+
 	// address attributes
 	@Column(name="streetNumber")
 	private int streetNumber;
@@ -32,7 +32,7 @@ public class User {
 	private String postalCode;
 	@Column(name="country")
 	private String country;
-	
+
 
 	public int getId() {
 		return id;

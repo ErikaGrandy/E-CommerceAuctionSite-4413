@@ -1,27 +1,27 @@
-package com.yorku.BidSphere.Catalog;
+package com.yorku.BidSphere.DutchCatalog;
 
 import java.time.LocalTime;
 import java.util.List;
-
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 @Entity
-public class CatalogItem {
-
+public class DutchCatalogItem {
+	
 	private @Id
 	@GeneratedValue
 	int itemID;
 
 	private String name;
 
-	private int currentPrice;
+	private int price;
 
-	private String auctionType;
-
-	private int highestBidderID;
+	private int buyerID;
+	
+	private int decrementStep;
+	
+	private int lowestPrice;
 
 	private String endTime;
 
@@ -30,12 +30,11 @@ public class CatalogItem {
 	private String description;
 
 	private int expeditedShippingCost;
-
-
-	public String toString() {
-		return "Catalog Item \n" + "itemID: " + this.itemID + "\n" + "name: " + this.name + "\n";
-	}
-
+	
+	private boolean availible;
+	
+	private int sellerID;
+	
 	public int getItemID() {
 		return itemID;
 	}
@@ -52,28 +51,36 @@ public class CatalogItem {
 		this.name = name;
 	}
 
-	public int getCurrentPrice() {
-		return currentPrice;
+	public int getPrice() {
+		return price;
 	}
 
-	public void setCurrentPrice(int currentPrice) {
-		this.currentPrice = currentPrice;
+	public void setPrice(int price) {
+		this.price = price;
 	}
 
-	public String getAuctionType() {
-		return auctionType;
+	public int getBuyerID() {
+		return buyerID;
 	}
 
-	public void setAuctionType(String auctionType) {
-		this.auctionType = auctionType;
+	public void setBuyerID(int buyerID) {
+		this.buyerID = buyerID;
 	}
 
-	public int getHighestBidderID() {
-		return highestBidderID;
+	public int getDecrementStep() {
+		return decrementStep;
 	}
 
-	public void setHighestBidderID(int highestBidderID) {
-		this.highestBidderID = highestBidderID;
+	public void setDecrementStep(int decrementStep) {
+		this.decrementStep = decrementStep;
+	}
+
+	public int getLowestPrice() {
+		return lowestPrice;
+	}
+
+	public void setLowestPrice(int lowestPrice) {
+		this.lowestPrice = lowestPrice;
 	}
 
 	public String getEndTime() {
@@ -107,4 +114,28 @@ public class CatalogItem {
 	public void setExpeditedShippingCost(int expeditedShippingCost) {
 		this.expeditedShippingCost = expeditedShippingCost;
 	}
+	
+	public void lowerPrice() {
+		if(this.price - this.decrementStep >= this.lowestPrice) {
+			this.price = price - this.decrementStep;
+		}
+	}
+
+	public boolean isAvailible() {
+		return availible;
+	}
+
+	public void setAvailible(boolean availible) {
+		this.availible = availible;
+	}
+
+	public int getSellerID() {
+		return sellerID;
+	}
+
+	public void setSellerID(int sellerID) {
+		this.sellerID = sellerID;
+	}
+
+
 }

@@ -13,10 +13,10 @@ public class Payment {
 	private int userID;
 	private int catalogItemID;
 	private Double amount;
-	
-	// Must be 16 digit and meet Luhn's formula. 
+
+	// Must be 16 digit and meet Luhn's formula.
 	//Search online for examples for testing
-	private Long cardNum; 
+	private Long cardNum;
 	private String cardholderName;
 	private Date expiryDate;
 	private int cvv;
