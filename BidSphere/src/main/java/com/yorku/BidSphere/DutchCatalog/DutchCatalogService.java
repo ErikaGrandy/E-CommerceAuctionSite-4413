@@ -58,7 +58,7 @@ public class DutchCatalogService {
     	
         Optional<DutchCatalogItem> item = repo.findById(itemID);
         DutchCatalogItem dutchItem = item.get();
-        dutchItem.setAvailible(false);
+        dutchItem.setAvailable(false);
         repo.save(dutchItem);
     	return dutchItem;
     }

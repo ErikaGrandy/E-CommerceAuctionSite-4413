@@ -31,7 +31,7 @@ public class DutchCatalogItem {
 
 	private int expeditedShippingCost;
 	
-	private boolean availible;
+	private boolean available;
 	
 	private int sellerID;
 	
@@ -121,14 +121,6 @@ public class DutchCatalogItem {
 		}
 	}
 
-	public boolean isAvailible() {
-		return availible;
-	}
-
-	public void setAvailible(boolean availible) {
-		this.availible = availible;
-	}
-
 	public int getSellerID() {
 		return sellerID;
 	}
@@ -137,5 +129,11 @@ public class DutchCatalogItem {
 		this.sellerID = sellerID;
 	}
 
+	public boolean isAvailable() {
+		return available;
+	}
 
+	public void setAvailable(boolean available) {
+		this.available = available;
+	}
 }

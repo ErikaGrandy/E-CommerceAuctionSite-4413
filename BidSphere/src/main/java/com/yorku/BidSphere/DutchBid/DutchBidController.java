@@ -50,7 +50,7 @@ public class DutchBidController {
 	// checks to see if the status of the item is available
 	@PostMapping("/DutchBid/buy")
 	public ResponseEntity<DutchBid> addItem(@RequestBody DutchBid bid) {
-		if (bid == null || bid.getAmount() == 0 || bid.getCatalogItemID() == 0 || bid.getUserID() == 0) {
+		if (bid == null || bid.getCatalogItemID() == 0 || bid.getUserID() == 0) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
@@ -82,10 +82,10 @@ public class DutchBidController {
 		}
 		
 		// Check if bid amount is equal to asking price
-		if(auctionItem.getPrice() > bid.getAmount()) {
-			System.out.println(bid.toString() + "Bid is too low. \n");
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
+//		if(auctionItem.getPrice() > bid.getAmount()) {
+//			System.out.println(bid.toString() + "Bid is too low. \n");
+//			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//		}
 		
 		// this is the winning bid. Store it in the db
 		// DutchBid db only contains winning bids
