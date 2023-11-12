@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 
 import { Button, ListGroup } from "react-bootstrap";
+import { userContext } from "../App";
 
-function Dash() {
+function ForwardDash() {
   const data = ["Bid 1", "Bid 2", "Bid 3"];
 
+  const { user, auction } = useContext(userContext);
+  //Basically we need the catalogue info
+  useEffect(() => {
+    console.log("ForwardDash.js: ", user, auction);
+  }, []);
   return (
     <div>
       <h1> Bid Dashboard</h1>
@@ -68,4 +74,4 @@ function Dash() {
   );
 }
 
-export default Dash;
+export default ForwardDash;
