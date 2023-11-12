@@ -1,9 +1,12 @@
 package com.yorku.BidSphere.Payment;
 
+import com.yorku.BidSphere.Bid.Bid;
 import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Optional;
 
 @Service
@@ -54,5 +57,24 @@ public class PaymentService {
 		if (count != 16)
 			return false;
 		return LuhnCheckDigit.LUHN_CHECK_DIGIT.isValid(cardNum.toString());
+	}
+
+	protected ArrayList<Payment> getAllPayments()
+	{
+		ArrayList<Payment> list = new ArrayList<>();
+		Iterable<Payment> itList = paymentRepository.findAll();
+		if (itList != null)
+		{
+			Iterator<Payment> iterator = itList.iterator();
+			while(iterator.hasNext()){
+				list.add(iterator.next());
+			}
+
+			return list;
+		}
+		else
+		{
+			return null;
+		}
 	}
 }

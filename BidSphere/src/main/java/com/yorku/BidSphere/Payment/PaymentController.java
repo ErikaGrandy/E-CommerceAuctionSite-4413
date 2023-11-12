@@ -1,5 +1,6 @@
 package com.yorku.BidSphere.Payment;
 
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,11 +10,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+
 @RestController
 public class PaymentController {
 
 	@Autowired
 	PaymentService paymentService;
+
+	@GetMapping("/Payment/getAllPayments")
+	public ResponseEntity<ArrayList<Payment>> getAllPayments()
+	{
+		ArrayList<Payment> payments = paymentService.getAllPayments();
+
+		return (payments != null) ? new ResponseEntity<>(payments, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.OK);
+	}
 
 	// Retrieve payment info in via ID
 	@GetMapping("/Payment/getByID")
