@@ -25,7 +25,7 @@ public class CatalogController {
 	}
 
 	@GetMapping("/Catalog/get")
-	public ResponseEntity<CatalogItem> getItem(@RequestParam(name="ItemID") int itemID)
+	public ResponseEntity<CatalogItem> getItem(@RequestParam(name="id") int itemID)
 	{
 		CatalogItem item = service.getItem(itemID);
 

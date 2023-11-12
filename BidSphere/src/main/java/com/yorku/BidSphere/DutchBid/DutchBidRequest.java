@@ -1,13 +1,14 @@
-package com.yorku.BidSphere.Bid;
+package com.yorku.BidSphere.DutchBid;
 
 import com.yorku.BidSphere.User.User;
 
-public class BidRequest {
-
+public class DutchBidRequest {
+	
+	
     private User user;
     private int amount;
 
-    public BidRequest(User user, int amount) {
+    public DutchBidRequest(User user, int amount) {
         this.user = user;
         this.amount = amount;
     }
@@ -19,5 +20,4 @@ public class BidRequest {
     public int getAmount() {
         return amount;
     }
-
 }
