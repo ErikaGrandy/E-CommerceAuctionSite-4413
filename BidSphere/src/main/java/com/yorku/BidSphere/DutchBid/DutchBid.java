@@ -23,6 +23,7 @@ public class DutchBid {
 	public void setUserID(int userID) {
 		this.userID = userID;
 	}
+	
 	public int getCatalogItemID() {
 		return catalogItemID;
 	}
