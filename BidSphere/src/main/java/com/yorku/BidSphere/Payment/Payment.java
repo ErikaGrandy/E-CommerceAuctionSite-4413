@@ -15,7 +15,7 @@ public class Payment {
 	private Double amount;
 
 	// Must be 16 digit and meet Luhn's formula.
-	//Search online for examples for testing
+	// Search online for examples for testing
 	private Long cardNum;
 	private String cardholderName;
 	private Date expiryDate;
@@ -54,6 +54,9 @@ public class Payment {
 	}
 
 	public Long getCardNum() {
+		if (this.cardNum == null) {
+			return (long) 0;
+		}
 		return cardNum;
 	}
 

@@ -25,35 +25,31 @@ public class UserController {
 	}
 
 	@GetMapping("/Users/verifyUser")
-	public ResponseEntity<User> verifyUser(@RequestParam(name="username") String username, @RequestParam(name="password") String password)
-	{
+	public ResponseEntity<User> verifyUser(@RequestParam(name = "username") String username,
+			@RequestParam(name = "password") String password) {
 		User user = userService.verify(username, password);
 
-		if (user == null)
-		{
+		if (user == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 
-	@GetMapping("Users/forgotPassword")
-	public ResponseEntity<User> updatePassword(@RequestParam(name="username") String username,
-											   @RequestParam(name="password") String newPassword,
-											   @RequestParam(name="streetNumber") int streetNumber)
-	{
+	@GetMapping("/Users/forgotPassword")
+	public ResponseEntity<User> updatePassword(@RequestParam(name = "username") String username,
+			@RequestParam(name = "password") String newPassword,
+			@RequestParam(name = "streetNumber") int streetNumber) {
 		User user = userService.updatePassword(username, streetNumber, newPassword);
 
-		if (user == null)
-		{
+		if (user == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 
-
 	@GetMapping("/Users/getByID")
-	public ResponseEntity<User> getUserById(@RequestParam(name="id") int id) {
-		
+	public ResponseEntity<User> getUserById(@RequestParam(name = "id") int id) {
+
 		if (userService.read(id) != null) {
 			return new ResponseEntity<>(userService.read(id), HttpStatus.OK);
 
@@ -66,13 +62,9 @@ public class UserController {
 	public ResponseEntity<User> createUser(@RequestBody User user) {
 		try {
 			String password = user.getPassword();
-			if (userService.checkExisting(user.getUserName()))
-			{
+			if (userService.checkExisting(user.getUserName()) || !userService.isPasswordValid(password)) {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			}
-//			if (!userService.isPasswordValid(password)) {
-//				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//			}
 			return new ResponseEntity<>(userService.create(user), HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

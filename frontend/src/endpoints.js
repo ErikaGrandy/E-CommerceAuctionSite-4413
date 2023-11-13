@@ -16,7 +16,7 @@ const ENDPOINTS = {
   USER: {
     VERIFY: "/Users/verifyUser",
     CREATE: "/Users/createUser",
-    FORGOTPASSWORD: "Users/forgotPassword",
+    FORGOTPASSWORD: "/Users/forgotPassword",
   },
   BID: {
     GETBIDFROMCATID: "/Bid/getByCatalogue",

@@ -39,13 +39,10 @@ public class UserService {
 
 	public User create(User user) {
 		String password = user.getPassword();
-//		if (isPasswordValid(password)) {
-//			return userRepository.save(user);
-//		} else {
-//			throw new IllegalArgumentException(
-//					"Make sure your password has atleast one character, lowercase, uppercase, number");
-//		}
-		return userRepository.save(user);
+		if (isPasswordValid(password)) {
+			return userRepository.save(user);
+		}
+		return null;
 	}
 
 	public void update(int id, User user) {
@@ -66,14 +63,9 @@ public class UserService {
 			String updatePassword = user.getPassword();
 			if (isPasswordValid(updatePassword)) {
 				userAttributes.setPassword(updatePassword);
-			} else {
-				throw new IllegalArgumentException(
-						"Make sure your password has atleast one character, lowercase, uppercase, number");
 			}
 
 			userRepository.save(userAttributes);
-		} else {
-			throw new IllegalArgumentException("No such id:	" + id);
 		}
 	}
 
@@ -85,36 +77,29 @@ public class UserService {
 		}
 	}
 
-	public User verify(String username, String password)
-	{
+	public User verify(String username, String password) {
 		User user = userRepository.getUserByUserNameAndPassword(username, password);
-		if (user == null)
-		{
+		if (user == null) {
 			return null;
 		}
 
-		if (!user.getPassword().equals(password))
-		{
+		if (!user.getPassword().equals(password)) {
 			return null;
 		}
 		return user;
 	}
 
-	public boolean checkExisting(String username)
-	{
+	public boolean checkExisting(String username) {
 		int count = userRepository.countUserByUserName(username);
-		if (count >= 1)
-		{
+		if (count >= 1) {
 			return true;
 		}
 		return false;
 	}
 
-	public User updatePassword(String username, int streetNumber, String newPassword)
-	{
+	public User updatePassword(String username, int streetNumber, String newPassword) {
 		User user = userRepository.getUserByUserName(username);
-		if (user == null || user.getStreetNumber()!=streetNumber)
-		{
+		if (user == null || user.getStreetNumber() != streetNumber || !isPasswordValid(newPassword)) {
 			return null;
 		}
 		user.setPassword(newPassword);
