@@ -1,6 +1,5 @@
 package com.yorku.BidSphere.Payment;
 
-import com.yorku.BidSphere.Bid.Bid;
 import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,11 +36,30 @@ public class PaymentService {
 		return payment;
 	}
 
+	protected Payment updatePayment(int paymentID, Payment newPaymentDetails) {
+		if (newPaymentDetails.getUserID() == paymentID) // Same ID. Update details
+		{
+			paymentRepository.save(newPaymentDetails);
+		} else { // Diff ID. Replace given paymentID with new details
+			newPaymentDetails.setPaymentID(paymentID);
+			paymentRepository.save(newPaymentDetails);
+		}
+		return newPaymentDetails;
+	}
+
+	protected Payment deletePaymentByID(int paymentID) {
+		Optional<Payment> payment = paymentRepository.findById(paymentID);
+		if (payment.isEmpty())
+			return null;
+		paymentRepository.deleteById(paymentID);
+		return payment.get();
+	}
+
 	protected boolean checkPaymentObjectValid(Payment payment) {
 		if (payment == null | payment.getUserID() == 0 | payment.getCatalogItemID() == 0)
 			return false; // Note paymentID will be null until added to DB
 		if (payment.getCardholderName() == null | payment.getAmount() == 0 | payment.getCvv() == 0
-				| payment.getCardNum() == 0 | payment.getExpiryDate() == null)
+			| payment.getCardNum() == 0 | payment.getExpiryDate() == null)
 			return false;
 
 		return true;
@@ -59,21 +77,17 @@ public class PaymentService {
 		return LuhnCheckDigit.LUHN_CHECK_DIGIT.isValid(cardNum.toString());
 	}
 
-	protected ArrayList<Payment> getAllPayments()
-	{
+	protected ArrayList<Payment> getAllPayments() {
 		ArrayList<Payment> list = new ArrayList<>();
 		Iterable<Payment> itList = paymentRepository.findAll();
-		if (itList != null)
-		{
+		if (itList != null) {
 			Iterator<Payment> iterator = itList.iterator();
-			while(iterator.hasNext()){
+			while (iterator.hasNext()) {
 				list.add(iterator.next());
 			}
 
 			return list;
-		}
-		else
-		{
+		} else {
 			return null;
 		}
 	}
