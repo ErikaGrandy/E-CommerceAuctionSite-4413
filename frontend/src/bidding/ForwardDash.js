@@ -51,17 +51,24 @@ function ForwardDash() {
   };
 
   const submitBid = (bid) => {
-    Axios.post(ENDPOINTS.BID.SENDBID, {
-      userID: user.id,
-      amount: bidAmount,
-      catalogItemID: auction.itemID,
-    })
-      .then((res) => {
-        refreshBids();
+    if (bidAmount <= auction.currentPrice) {
+      window.alert(
+        "Your bid amount is less than the highest bid amount. Please bid something higher"
+      );
+    } else {
+      Axios.post(ENDPOINTS.BID.SENDBID, {
+        userID: user.id,
+        amount: bidAmount,
+        catalogItemID: auction.itemID,
       })
-      .catch((err) => {
-        console.log(err);
-      });
+        .then((res) => {
+          refreshBids();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    refreshBids();
   };
 
   //Controls bid dashboard visibility
@@ -181,7 +188,9 @@ function ForwardDash() {
         </>
       )}
 
-      {!biddingActive && auction.highestBidderID === user.id && <Payment />}
+      {!biddingActive && auction.highestBidderID === user.id && (
+        <Payment updateAuction={refreshBids} />
+      )}
 
       {!biddingActive && (
         <Row>

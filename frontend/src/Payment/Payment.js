@@ -4,15 +4,19 @@ import PaymentForm from "./PaymentForm";
 import Axios from "../axios";
 import ENDPOINTS from "../endpoints";
 
-const Payment = ({ pastBids }) => {
+const Payment = ({ updateAuction }) => {
   const { user, auction } = useContext(userContext);
 
   const [paid, setPaid] = useState(false);
   const [paymentReceipt, setPaymentReceipt] = useState();
 
   const checkForPayment = () => {
+    const params =
+      auction.auctionType === "Forward"
+        ? { userID: user.id, itemID: auction.itemID }
+        : { userID: user.id, itemID: auction.itemID + 100 };
     Axios.get(ENDPOINTS.PAYMENT.CHECKPAYMENT, {
-      params: { userID: user.id, itemID: auction.itemID },
+      params: params,
     })
       .then((res) => {
         setPaid(true);
@@ -43,13 +47,20 @@ const Payment = ({ pastBids }) => {
   //True -> Show receipt
   //False -> Prompt to pay
   useEffect(() => {
+    updateAuction();
     checkForPayment();
   }, []);
 
   return (
     <div>
       <h1>Payment Info</h1>
-      {auction.highestBidderID === user.id &&
+      {auction.auctionType === "Forward" &&
+        auction.highestBidderID === user.id &&
+        ((!paid && <PaymentForm checkForPayment={checkForPayment} />) ||
+          (paid && PaymentAndShipmentReceipt()))}
+
+      {auction.auctionType === "Dutch" &&
+        auction.buyerID === user.id &&
         ((!paid && <PaymentForm checkForPayment={checkForPayment} />) ||
           (paid && PaymentAndShipmentReceipt()))}
     </div>

@@ -13,18 +13,38 @@ const PaymentForm = ({ checkForPayment }) => {
   const [cardholderName, setCardholderName] = useState("");
   const [expiryDate, setExpiryDate] = useState();
   const [cvv, setCvv] = useState(0);
-  const [totalAmount, setTotalAmount] = useState(auction.currentPrice);
+  const [totalAmount, setTotalAmount] = useState();
   const [checked, setChecked] = useState(false);
+
+  useEffect(() => {
+    if (auction !== null && auction.auctionType === "Forward") {
+      setTotalAmount(auction.currentPrice);
+    } else {
+      setTotalAmount(auction.price);
+    }
+  });
+
   const submitPayment = () => {
-    const req = {
-      cardNum: cardNum,
-      cardholderName: cardholderName,
-      expiryDate: expiryDate,
-      cvv: cvv,
-      amount: totalAmount,
-      userID: user.id,
-      catalogItemID: auction.itemID,
-    };
+    const req =
+      auction.auctionType === "Forward"
+        ? {
+            cardNum: cardNum,
+            cardholderName: cardholderName,
+            expiryDate: expiryDate,
+            cvv: cvv,
+            amount: totalAmount,
+            userID: user.id,
+            catalogItemID: auction.itemID,
+          }
+        : {
+            cardNum: cardNum,
+            cardholderName: cardholderName,
+            expiryDate: expiryDate,
+            cvv: cvv,
+            amount: totalAmount,
+            userID: user.id,
+            catalogItemID: auction.itemID + 100,
+          };
 
     Axios.post(ENDPOINTS.PAYMENT.ADDPAYMENT, req)
       .then((res) => {
@@ -38,12 +58,14 @@ const PaymentForm = ({ checkForPayment }) => {
 
   //Adjust total price according to the checked option.
   useEffect(() => {
-    if (checked === true) {
+    if (checked === true && auction.auctionType === "Forward") {
       setTotalAmount(auction.currentPrice + auction.expeditedShippingCost);
-      console.log(auction.currentPrice + auction.expeditedShippingCost);
+    } else if (checked === true && auction.auctionType === "Dutch") {
+      setTotalAmount(auction.price + auction.expeditedShippingCost);
+    } else if (checked === false && auction.auctionType === "Dutch") {
+      setTotalAmount(auction.price);
     } else {
       setTotalAmount(auction.currentPrice);
-      console.log(auction.currentPrice);
     }
   }, [checked]);
 
@@ -57,7 +79,6 @@ const PaymentForm = ({ checkForPayment }) => {
           }
           value={checked}
           onClick={(e) => {
-            console.log(!checked);
             setChecked(!checked);
           }}
         />
@@ -68,7 +89,7 @@ const PaymentForm = ({ checkForPayment }) => {
             <Form.Label>Card Number</Form.Label>
             <Col>
               <Form.Control
-                type="text"
+                type="number"
                 placeholder=""
                 value={cardNum}
                 onChange={(e) => {
