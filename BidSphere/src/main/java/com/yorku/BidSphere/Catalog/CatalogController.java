@@ -37,7 +37,11 @@ public class CatalogController {
 	{
 		try
 		{
-			System.out.println(item.getName());
+			if(item.getCurrentPrice() == 0 || item.getExpeditedShippingCost() == 0 || item.getEndTime().isEmpty() ||
+					item.getDescription().isEmpty() || item.getExpeditedShippingCost() == 0)
+			{
+				return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+			}
 			CatalogItem addedItem = service.addItem(item);
 			return new ResponseEntity<CatalogItem>(addedItem, HttpStatus.OK);
 		}
