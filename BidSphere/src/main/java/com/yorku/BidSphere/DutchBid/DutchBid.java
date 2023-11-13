@@ -11,6 +11,7 @@ public class DutchBid {
     private @Id @GeneratedValue int id;
     private int userID;
     private int catalogItemID;
+
 	public int getId() {
 		return id;
 	}
@@ -22,8 +23,7 @@ public class DutchBid {
 	}
 	public void setUserID(int userID) {
 		this.userID = userID;
-	}
-	
+	};
 	public int getCatalogItemID() {
 		return catalogItemID;
 	}

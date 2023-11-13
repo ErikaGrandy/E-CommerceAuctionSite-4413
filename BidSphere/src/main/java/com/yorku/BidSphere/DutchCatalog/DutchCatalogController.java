@@ -15,7 +15,6 @@ import java.util.ArrayList;
 @RestController
 public class DutchCatalogController {
 
-
 	@Autowired
 	DutchCatalogService service;
 
@@ -28,7 +27,7 @@ public class DutchCatalogController {
 				new ResponseEntity<>(null, HttpStatus.OK));
 	}
 	@GetMapping("/DutchCatalog/get")
-	public ResponseEntity<DutchCatalogItem> getItem(@RequestParam(name="ItemID") int itemID)
+	public ResponseEntity<DutchCatalogItem> getItem(@RequestParam(name="id") int itemID)
 	{
 		DutchCatalogItem item = service.getItem(itemID);
 
@@ -41,7 +40,6 @@ public class DutchCatalogController {
 	{
 		try
 		{
-			System.out.println(item.getName());
 			DutchCatalogItem addedItem = service.addItem(item);
 			return new ResponseEntity<DutchCatalogItem>(addedItem, HttpStatus.OK);
 		}
@@ -74,6 +72,7 @@ public class DutchCatalogController {
 //			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 //		}
 //	}
+
 	@PutMapping("/DutchCatalog/updatePrice")
 	public ResponseEntity<DutchCatalogItem> updatePrice1(@RequestParam int itemID, @RequestParam int userID)
 	{

@@ -51,6 +51,7 @@ public class DutchBidController {
 	@PostMapping("/DutchBid/buy")
 	public ResponseEntity<DutchBid> addItem(@RequestBody DutchBid bid) {
 		if (bid == null || bid.getCatalogItemID() == 0 || bid.getUserID() == 0) {
+			System.out.println("Bid is either null or has null components");
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
@@ -64,7 +65,7 @@ public class DutchBidController {
 		
 		// Check if Item has been sold
 		if (auctionItem.isAvailable()==false) {
-			System.out.println("CatalogItem is unavailible. \n");
+			System.out.println("CatalogItem is unavailable. \n");
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
