@@ -90,6 +90,7 @@ const PaymentForm = ({ checkForPayment }) => {
             <Col>
               <Form.Control
                 type="number"
+                min="0"
                 placeholder=""
                 value={cardNum}
                 onChange={(e) => {

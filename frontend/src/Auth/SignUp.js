@@ -122,6 +122,7 @@ const SignUp = () => {
             <Form.Label>Street Number</Form.Label>
             <Form.Control
               type="number"
+              min="0"
               placeholder=""
               value={streetNumber}
               onChange={(e) => {

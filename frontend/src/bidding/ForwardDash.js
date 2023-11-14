@@ -153,6 +153,7 @@ function ForwardDash() {
                     <Col>
                       <Form.Control
                         type="number"
+                        min="0"
                         value={bidAmount}
                         onChange={(e) => {
                           setBidAmount(e.target.value);

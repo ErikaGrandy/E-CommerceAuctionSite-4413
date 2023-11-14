@@ -170,6 +170,7 @@ function AddDutchCatMenu({ refresh, toggleRefresh }) {
               <Col>
                 <Form.Control
                   type="number"
+                  min="0"
                   placeholder="200"
                   value={currentPrice}
                   onChange={handleCurrentPriceChange}
@@ -181,6 +182,7 @@ function AddDutchCatMenu({ refresh, toggleRefresh }) {
               <Col>
                 <Form.Control
                   type="number"
+                  min="0"
                   placeholder="200"
                   value={decrementStep}
                   onChange={handleDecrementStepChange}
@@ -194,6 +196,7 @@ function AddDutchCatMenu({ refresh, toggleRefresh }) {
               <Col>
                 <Form.Control
                   type="number"
+                  min="0"
                   placeholder="200"
                   value={lowestPrice}
                   onChange={handleLowestPriceChange}
@@ -205,6 +208,7 @@ function AddDutchCatMenu({ refresh, toggleRefresh }) {
               <Col>
                 <Form.Control
                   type="number"
+                  min="0"
                   placeholder="12"
                   value={shippingCost}
                   onChange={handleShippingCostChange}
@@ -216,6 +220,7 @@ function AddDutchCatMenu({ refresh, toggleRefresh }) {
               <Col>
                 <Form.Control
                   type="number"
+                  min="0"
                   placeholder="5"
                   value={duration}
                   onChange={handleDurationChange}
@@ -227,6 +232,7 @@ function AddDutchCatMenu({ refresh, toggleRefresh }) {
               <Col>
                 <Form.Control
                   type="number"
+                  min="0"
                   placeholder="3"
                   value={shippingDuration}
                   onChange={handleShippingDurationChange}

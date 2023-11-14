@@ -152,6 +152,7 @@ function AddForwardCatMenu({ refresh, toggleRefresh }) {
               <Col>
                 <Form.Control
                   type="number"
+                  min="0"
                   placeholder="200"
                   value={currentPrice}
                   onChange={handleCurrentPriceChange}
@@ -163,6 +164,7 @@ function AddForwardCatMenu({ refresh, toggleRefresh }) {
               <Col>
                 <Form.Control
                   type="number"
+                  min="0"
                   placeholder="12"
                   value={shippingCost}
                   onChange={handleShippingCostChange}
@@ -174,6 +176,7 @@ function AddForwardCatMenu({ refresh, toggleRefresh }) {
               <Col>
                 <Form.Control
                   type="number"
+                  min="0"
                   placeholder="5"
                   value={duration}
                   onChange={handleDurationChange}
@@ -185,6 +188,7 @@ function AddForwardCatMenu({ refresh, toggleRefresh }) {
               <Col>
                 <Form.Control
                   type="number"
+                  min="0"
                   placeholder="3"
                   value={shippingDuration}
                   onChange={handleShippingDurationChange}
