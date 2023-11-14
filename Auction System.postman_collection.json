@@ -1,0 +1,1950 @@
+{
+	"info": {
+		"_postman_id": "ac87cb7d-1505-4c12-9f1a-f7806f807c23",
+		"name": "Auction System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30725761"
+	},
+	"item": [
+		{
+			"name": "Catalog Package",
+			"item": [
+				{
+					"name": "get All Items",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/Catalog/getAll",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Catalog",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add Item",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Baked GOods\",\n    \"currentPrice\": 123,\n    \"auctionType\": \"Dutch\",\n    \"highestBidderID\": 0,\n    \"endTime\": \"2023-11-10T10:40:21.883892-05:00[America/Toronto]\",\n    \"shippingTime\": 3,\n    \"description\": \"A smart cookie.\",\n    \"expeditedShippingCost\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Catalog/add",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Catalog",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request Error: add item with missing param",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Baked GOods\",\n    \"currentPrice\": 25,\n    \"auctionType\": \"Dutch\",\n    \"highestBidderID\": 0,\n    \"endTime\": \"2023-11-10T10:40:21.883892-05:00[America/Toronto]\",\n    \"shippingTime\": 3,\n    \"description\": \"A smart cookie.\",\n    \"expeditedShippingCost\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Catalog/add",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Catalog",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Item",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"itemID\": 202,\n    \"name\": \"Baked GOods\",\n    \"currentPrice\": 123,\n    \"auctionType\": \"Dutch\",\n    \"highestBidderID\": 0,\n    \"endTime\": \"2023-11-10T10:40:21.883892-05:00[America/Toronto]\",\n    \"shippingTime\": \"2023-11-10T10:40:21.883892-05:00[America/Toronto]\",\n    \"description\": \"A smart cookie.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Catalog/add",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Catalog",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Item",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/Catalog/get?id=1",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Catalog",
+								"get"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Catalog controller stores all the forward auction items"
+		},
+		{
+			"name": "Bid Package",
+			"item": [
+				{
+					"name": "get All Bids",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/Bid/getAll",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Bid",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add Bid",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userID\":\"1\",\n    \"amount\": 23,\n    \"catalogItemID\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/Bid/add",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Bid",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Bid by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/Bid/get?id=103",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Bid",
+								"get"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "103"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "gets bids from Cat ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/Bid/getByCatalogue?id=1",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"Bid",
+								"getByCatalogue"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "send Bid",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userID\":1,\n    \"amount\":1000,\n    \"catalogItemID\":203\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/forwardAuction/send",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"forwardAuction",
+								"send"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/forwardAuction/getStatus?id=203",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"forwardAuction",
+								"getStatus"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "203"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DutchBid Package",
+			"item": [
+				{
+					"name": "Get All DutchBids",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8081/DutchBid/getAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"DutchBid",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get DutchBids Invalid",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8081/DutchBid/get?id=121132",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"DutchBid",
+								"get"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "121132"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Dutch Item to Buy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"itemID\":1,\r\n    \"name\": \"TV\",\r\n    \"price\":1000,\r\n    \"buyerID\":0,\r\n    \"decrementStep\": 10,\r\n    \"lowestPrice\": 500,\r\n    \"auctionType\": \"Dutch\",\r\n    \"endTime\": \"2023-11-17T15:30:00-05:00[America/New_York]\",\r\n    \"shippingTime\": 10,\r\n    \"description\": \"Samsung LG\",\r\n    \"expeditedShippingCost\" : 50,\r\n    \"available\": true,\r\n    \"sellerID\":10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/BidSphere/DutchCatalog/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"BidSphere",
+								"DutchCatalog",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DutchBids Buy Invalid",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":1,\r\n    \"userID\":0,\r\n    \"catalogItemID\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/DutchBid/buy",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"DutchBid",
+								"buy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DutchBids Buy Invalid 2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":1,\r\n    \"userID\":1,\r\n    \"catalogItemID\":0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/DutchBid/buy",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"DutchBid",
+								"buy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DutchBids Buy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":1,\r\n    \"userID\":14,\r\n    \"catalogItemID\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/DutchBid/buy",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"DutchBid",
+								"buy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get DutchBid",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8081/DutchBid/get?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"DutchBid",
+								"get"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DutchBids Buy Invalid 3 (item sold)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":1,\r\n    \"userID\":15,\r\n    \"catalogItemID\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/DutchBid/buy",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"DutchBid",
+								"buy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Dutch Item to Buy (expired listing)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"itemID\":2,\r\n    \"name\": \"macbook\",\r\n    \"price\":600,\r\n    \"buyerID\":0,\r\n    \"decrementStep\": 10,\r\n    \"lowestPrice\": 500,\r\n    \"auctionType\": \"Dutch\",\r\n    \"endTime\": \"2022-11-17T15:30:00-05:00[America/New_York]\",\r\n    \"shippingTime\": 10,\r\n    \"description\": \"air\",\r\n    \"expeditedShippingCost\" : 50,\r\n    \"available\": true,\r\n    \"sellerID\":10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/DutchCatalog/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"DutchCatalog",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DutchBids Buy Invalid 4 (item expired)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":1,\r\n    \"userID\":1,\r\n    \"catalogItemID\":2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/DutchBid/buy",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"DutchBid",
+								"buy"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DutchCatalog Package",
+			"item": [
+				{
+					"name": "Get All Dutch Items",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/BidSphere/DutchCatalog/getAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"BidSphere",
+								"DutchCatalog",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Dutch Item",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"itemID\":1,\r\n    \"name\": \"TV\",\r\n    \"price\":1000,\r\n    \"buyerID\":0,\r\n    \"decrementStep\": 10,\r\n    \"lowestPrice\": 500,\r\n    \"auctionType\": \"Dutch\",\r\n    \"endTime\": \"2023-12-17T15:30:00-05:00[America/New_York]\",\r\n    \"shippingTime\": 10,\r\n    \"description\": \"Samsung LG\",\r\n    \"expeditedShippingCost\" : 50,\r\n    \"available\": true,\r\n    \"sellerID\":10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/DutchCatalog/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"DutchCatalog",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetByID Dutch Items",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/DutchCatalog/get?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"DutchCatalog",
+								"get"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetByID Dutch Items Invalid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/DutchCatalog/get?id=19082",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"DutchCatalog",
+								"get"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "19082"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Dutch Items",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/DutchCatalog/getAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"DutchCatalog",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Decrement Price (seller)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/DutchCatalog/updatePrice?itemID=1&userID=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"DutchCatalog",
+								"updatePrice"
+							],
+							"query": [
+								{
+									"key": "itemID",
+									"value": "1"
+								},
+								{
+									"key": "userID",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Decrement Price Invalid (non-seller)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/DutchCatalog/updatePrice?itemID=1&userID=1203",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"DutchCatalog",
+								"updatePrice"
+							],
+							"query": [
+								{
+									"key": "itemID",
+									"value": "1"
+								},
+								{
+									"key": "userID",
+									"value": "1203"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Decrement Price Invalid 2 (wrong ID)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/DutchCatalog/updatePrice?itemID=39231&userID=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"DutchCatalog",
+								"updatePrice"
+							],
+							"query": [
+								{
+									"key": "itemID",
+									"value": "39231"
+								},
+								{
+									"key": "userID",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Dutch Item 2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"itemID\":2,\r\n    \"name\": \"Phone\",\r\n    \"price\":100,\r\n    \"buyerID\":0,\r\n    \"decrementStep\": 10,\r\n    \"lowestPrice\": 90,\r\n    \"auctionType\": \"Dutch\",\r\n    \"endTime\": \"2023-12-17T15:30:00-05:00[America/New_York]\",\r\n    \"shippingTime\": 10,\r\n    \"description\": \"IPhone\",\r\n    \"expeditedShippingCost\" : 50,\r\n    \"available\": true,\r\n    \"sellerID\":10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/DutchCatalog/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"DutchCatalog",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Decrement Price (Till Lowest Price)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/DutchCatalog/updatePrice?itemID=2&userID=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"DutchCatalog",
+								"updatePrice"
+							],
+							"query": [
+								{
+									"key": "itemID",
+									"value": "2"
+								},
+								{
+									"key": "userID",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Package",
+			"item": [
+				{
+					"name": "createUser1a",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"john_doe\",\r\n    \"password\": \"P@ssw0rd1\",\r\n    \"firstName\": \"John\",\r\n    \"lastName\": \"Doe\",\r\n    \"streetNumber\": 123,\r\n    \"streetAddress\": \"Main St\",\r\n    \"city\": \"Anytown\",\r\n    \"province\": \"CA\",\r\n    \"postalCode\": \"A1B 2C3\",\r\n    \"country\": \"USA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/Users/createUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"Users",
+								"createUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createUser1b",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"jane_smith\",\r\n    \"password\": \"T1g3r$tr\",\r\n    \"firstName\": \"Jane\",\r\n    \"lastName\": \"Smith\",\r\n    \"streetNumber\": 456,\r\n    \"streetAddress\": \"Oak Ave\",\r\n    \"city\": \"Anothercity\",\r\n    \"province\": \"NY\",\r\n    \"postalCode\": \"X0Y 1Z9\",\r\n    \"country\": \"USA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/Users/createUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"Users",
+								"createUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createUser1c",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"robert_johnson\",\r\n    \"password\": \"Secur3P@ss\",\r\n    \"firstName\": \"Robert\",\r\n    \"lastName\": \"Johnson\",\r\n    \"streetNumber\": 789,\r\n    \"streetAddress\": \"Maple Ln\",\r\n    \"city\": \"Somewhere\",\r\n    \"province\": \"TX\",\r\n    \"postalCode\": \"M9A 1B2\",\r\n    \"country\": \"USA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/Users/createUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"Users",
+								"createUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createUser1d",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"emily_davis\",\r\n    \"password\": \"L0v3Musi@\",\r\n    \"firstName\": \"Emily\",\r\n    \"lastName\": \"Davis\",\r\n    \"streetNumber\": 101,\r\n    \"streetAddress\": \"Elm St\",\r\n    \"city\": \"Anyville\",\r\n    \"province\": \"CA\",\r\n    \"postalCode\": \"K8N 5W6\",\r\n    \"country\": \"USA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/Users/createUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"Users",
+								"createUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllUsers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/Users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"Users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/Users/getByID?id=705",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"Users",
+								"getByID"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "705"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUser_no_password_change",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"emily_davis\",\r\n    \"password\": \"L0v3Musi@\",\r\n    \"firstName\": \"Emily\",\r\n    \"lastName\": \"Davis\",\r\n    \"streetNumber\": 101,\r\n    \"streetAddress\": \"Elm St\",\r\n    \"city\": \"Anyville\",\r\n    \"province\": \"CA\",\r\n    \"postalCode\": \"K8N 5W6\",\r\n    \"country\": \"Croatia\"\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/Users/705",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"Users",
+								"705"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUser_password_change",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n    \"userName\": \"robert_johnson\",\r\n    \"password\": \"R0bert@123\",\r\n    \"firstName\": \"Robert\",\r\n    \"lastName\": \"Johnson\",\r\n    \"streetNumber\": 789,\r\n    \"streetAddress\": \"Maple Ln\",\r\n    \"city\": \"Somewhere\",\r\n    \"province\": \"TX\",\r\n    \"postalCode\": \"M9A 1B2\",\r\n    \"country\": \"USA\"\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/Users/704",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"Users",
+								"704"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUser",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/Users/705",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"Users",
+								"705"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "verifyUser",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/Users/verifyUser?username=emily_davis&password=L0v3Musi@",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"Users",
+								"verifyUser"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "emily_davis"
+								},
+								{
+									"key": "password",
+									"value": "L0v3Musi@"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatePassword",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/Users/forgotPassword?username=emily_davis&password=L0v3Musi@&streetNumber=101",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"Users",
+								"forgotPassword"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "emily_davis"
+								},
+								{
+									"key": "password",
+									"value": "L0v3Musi@"
+								},
+								{
+									"key": "streetNumber",
+									"value": "101"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "bad verifyUser",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/verifyUser?username=randomGuy&password=@noOne123",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"verifyUser"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "randomGuy"
+								},
+								{
+									"key": "password",
+									"value": "@noOne123"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "bad updatePassword",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/Users/updatePassword?username=jane_smith&password=jamaica!",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"Users",
+								"updatePassword"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "jane_smith"
+								},
+								{
+									"key": "password",
+									"value": "jamaica!"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "bad getUserById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/Users/getByID?id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"Users",
+								"getByID"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "bad createUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usernme\": \"john_doe\",\r\n    \"pass\": \"weakpass\",\r\n    \"first\": \"John\",\r\n    \"last\": \"Doe\",\r\n    \"streetNum\": \"abc\",\r\n    \"streetAddr\": \"Main St\",\r\n    \"cty\": \"Anytown\",\r\n    \"prov\": \"CA\",\r\n    \"postal\": \"A1B 2C3\",\r\n    \"cntry\": \"USA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/Users/createUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"Users",
+								"createUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "bad updateUser",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/Users/8980",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"Users",
+								"8980"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "bad deleteUser",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/Users/8980",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"Users",
+								"8980"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payment Package",
+			"item": [
+				{
+					"name": "Payment - GET all",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/Payment/getAllPayments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"Payment",
+								"getAllPayments"
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "Payment - GET byID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/Payment/getByID?paymentID=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"Payment",
+								"getByID"
+							],
+							"query": [
+								{
+									"key": "paymentID",
+									"value": "1"
+								}
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "Payment - Invalid GET byID - Missing Param",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/Payment/getByID",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"Payment",
+								"getByID"
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "Payment - GET byUserIDandItemID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/Payment/getbyUserIDItemID?userID=402&itemID=103",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"Payment",
+								"getbyUserIDItemID"
+							],
+							"query": [
+								{
+									"key": "userID",
+									"value": "402"
+								},
+								{
+									"key": "itemID",
+									"value": "103"
+								}
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "Payment - Invalid GET byUserIDandItemID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/Payment/getbyUserIDItemID?userID=402",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"Payment",
+								"getbyUserIDItemID"
+							],
+							"query": [
+								{
+									"key": "userID",
+									"value": "402"
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "Payment - Valid POST",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userID\":3,\n    \"catalogItemID\":1,\n    \"amount\":450,\n    \"cardNum\":12345000012,\n    \"cardholderName\":\"Alice Johnson\",\n    \"expiryDate\":\"2025-01-01\",\n    \"cvv\":123\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/Payment/Add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"Payment",
+								"Add"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Payment - Invalid Payment POST - Invalid ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userID\":0,\n    \"catalogItemID\":1,\n    \"amount\":450,\n    \"cardNum\":12345000012,\n    \"cardholderName\":\"Alice Johnson\",\n    \"expiryDate\":\"2025-01-01\",\n    \"cvv\":123\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/Payment/Add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"Payment",
+								"Add"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Payment - Invalid Payment POST - Missing Param",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userID\":82,\n    \"catalogItemID\":1,\n    \"amount\":450,\n    \"cardholderName\":\"Alice Johnson\",\n    \"expiryDate\":\"2025-01-01\",\n    \"cvv\":123\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/Payment/Add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"Payment",
+								"Add"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Payment - Update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userID\":82,\n    \"catalogItemID\":1,\n    \"amount\":450,\n    \"cardholderName\":\"Alison Johnson\",\n    \"expiryDate\":\"2025-01-01\",\n    \"cvv\":123\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/Payment/Update?paymentID=82",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"Payment",
+								"Update"
+							],
+							"query": [
+								{
+									"key": "paymentID",
+									"value": "82"
+								}
+							]
+						},
+						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Payment - Update Other",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userID\":82,\n    \"catalogItemID\":1,\n    \"amount\":450,\n    \"cardholderName\":\"Alison Johnson\",\n    \"expiryDate\":\"2025-01-01\",\n    \"cvv\":123\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/Payment/Update?paymentID=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"Payment",
+								"Update"
+							],
+							"query": [
+								{
+									"key": "paymentID",
+									"value": "1"
+								}
+							]
+						},
+						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Payment - Invalid Update - Missing Param",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Add your name in the body\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/Payment/Update?paymentID=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"Payment",
+								"Update"
+							],
+							"query": [
+								{
+									"key": "paymentID",
+									"value": "1"
+								},
+								{
+									"key": "id",
+									"value": "",
+									"disabled": true
+								}
+							]
+						},
+						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Payment - Delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful DELETE request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 202, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/info?id=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"info"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						},
+						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Payment - Invalid Delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/Payment/Delete?paymentID=9999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"Payment",
+								"Delete"
+							],
+							"query": [
+								{
+									"key": "paymentID",
+									"value": "9999"
+								}
+							]
+						},
+						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "http://localhost:8081",
+			"type": "string"
+		}
+	]
+}
