@@ -47,15 +47,42 @@ function App() {
   const [showCatalogues, setShowCatalogues] = useState(false);
   const [showMainDash, setShowMainDash] = useState(false);
 
-  // useEffect(() => {
-  //   if (auction.name !== "") {
-  //     setShowMainDash(true);
-  //     setShowSignIn(false);
-  //     setShowSignUp(false);
-  //     setShowResetPassword(false);
-  //     setShowCatalogues(false);
-  //   }
-  // }, [auction]);
+  const SignInView = () => {
+    setShowSignIn(true);
+    setShowSignUp(false);
+    setShowResetPassword(false);
+    setShowCatalogues(false);
+    setShowMainDash(false);
+  };
+  const SignUpView = () => {
+    setShowSignIn(false);
+    setShowSignUp(true);
+    setShowResetPassword(false);
+    setShowCatalogues(false);
+    setShowMainDash(false);
+  };
+  const resetPasswordView = () => {
+    setShowSignIn(false);
+    setShowSignUp(false);
+    setShowResetPassword(true);
+    setShowCatalogues(false);
+    setShowMainDash(false);
+  };
+  const showCatalogueView = () => {
+    setShowSignIn(false);
+    setShowSignUp(false);
+    setShowResetPassword(false);
+    setShowCatalogues(true);
+    setShowMainDash(false);
+  };
+
+  const showBidDashboard = () => {
+    setShowSignIn(false);
+    setShowSignUp(false);
+    setShowResetPassword(false);
+    setShowCatalogues(false);
+    setShowMainDash(true);
+  };
 
   useEffect(() => {
     console.log("Auction: ", auction);
@@ -64,68 +91,21 @@ function App() {
 
   return (
     <div className="App">
-      <userContext.Provider value={{ user, setUser, auction, setAuction }}>
+      <userContext.Provider
+        value={{ user, setUser, auction, setAuction, showBidDashboard }}
+      >
         <Navbar bg="dark" data-bs-theme="dark">
           <Container>
             <Navbar.Brand>Auction System</Navbar.Brand>
             <Nav>
-              <Nav.Link
-                onClick={() => {
-                  setShowSignIn(true);
-                  setShowSignUp(false);
-                  setShowResetPassword(false);
-                  setShowCatalogues(false);
-                  setShowMainDash(false);
-                }}
-              >
-                Sign In
-              </Nav.Link>
-              <Nav.Link
-                onClick={() => {
-                  setShowSignIn(false);
-                  setShowSignUp(true);
-                  setShowResetPassword(false);
-                  setShowCatalogues(false);
-                  setShowMainDash(false);
-                }}
-                href=""
-              >
+              <Nav.Link onClick={SignInView}>Sign In</Nav.Link>
+              <Nav.Link onClick={SignUpView} href="">
                 Sign Up
               </Nav.Link>
-              <Nav.Link
-                onClick={() => {
-                  setShowSignIn(false);
-                  setShowSignUp(false);
-                  setShowResetPassword(true);
-                  setShowCatalogues(false);
-                  setShowMainDash(false);
-                }}
-              >
-                Reset Password
-              </Nav.Link>
+              <Nav.Link onClick={resetPasswordView}>Reset Password</Nav.Link>
 
-              <Nav.Link
-                onClick={() => {
-                  setShowSignIn(false);
-                  setShowSignUp(false);
-                  setShowResetPassword(false);
-                  setShowCatalogues(true);
-                  setShowMainDash(false);
-                }}
-              >
-                Catalogues
-              </Nav.Link>
-              <Nav.Link
-                onClick={() => {
-                  setShowSignIn(false);
-                  setShowSignUp(false);
-                  setShowResetPassword(false);
-                  setShowCatalogues(false);
-                  setShowMainDash(true);
-                }}
-              >
-                Bid Dash
-              </Nav.Link>
+              <Nav.Link onClick={showCatalogueView}>Catalogues</Nav.Link>
+              <Nav.Link onClick={showBidDashboard}>Bid Dash</Nav.Link>
             </Nav>
             {user == null ||
               (user.userName === "" && (

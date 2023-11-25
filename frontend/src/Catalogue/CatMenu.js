@@ -41,7 +41,8 @@ export const CatMenu = () => {
 
   const [refresh, toggleRefresh] = useState(false);
 
-  const { user, setUser, auction, setAuction } = useContext(userContext);
+  const { user, setUser, auction, setAuction, showBidDashboard } =
+    useContext(userContext);
 
   const [selected, setSelected] = useState("");
 
@@ -82,6 +83,7 @@ export const CatMenu = () => {
   const handleSubmission = () => {
     // console.log(JSON.parse(selected));
     setAuction(JSON.parse(selected));
+    showBidDashboard();
   };
 
   return (
@@ -185,7 +187,7 @@ export const CatMenu = () => {
           </Table>
         </div>
         <Button variant="primary" onClick={handleSubmission}>
-          Bid
+          Select
         </Button>
       </Form>
     </div>

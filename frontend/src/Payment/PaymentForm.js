@@ -19,10 +19,10 @@ const PaymentForm = ({ checkForPayment }) => {
   useEffect(() => {
     if (auction !== null && auction.auctionType === "Forward") {
       setTotalAmount(auction.currentPrice);
-    } else {
+    } else if (auction !== null && auction.auctionType === "Dutch") {
       setTotalAmount(auction.price);
     }
-  });
+  }, [auction]);
 
   const submitPayment = () => {
     const req =
@@ -64,9 +64,10 @@ const PaymentForm = ({ checkForPayment }) => {
       setTotalAmount(auction.price + auction.expeditedShippingCost);
     } else if (checked === false && auction.auctionType === "Dutch") {
       setTotalAmount(auction.price);
-    } else {
+    } else if (checked === false && auction.auctionType === "Forward") {
       setTotalAmount(auction.currentPrice);
     }
+    console.log("Checked has been changed to a value of: ", checked);
   }, [checked]);
 
   return (
@@ -77,8 +78,7 @@ const PaymentForm = ({ checkForPayment }) => {
           label={
             "+" + auction.expeditedShippingCost + " for expedited shipping"
           }
-          value={checked}
-          onClick={(e) => {
+          onChange={(e) => {
             setChecked(!checked);
           }}
         />

@@ -33,7 +33,17 @@ const Payment = ({ updateAuction }) => {
       <>
         <div>
           <h5>Payment Receipt</h5>
-          {JSON.stringify(paymentReceipt)}
+          <ul>
+            <li>UserID: {paymentReceipt.userID}</li>
+            <li>CatalogItemID: {paymentReceipt.catalogItemID}</li>
+            <li>Amount Paid: {paymentReceipt.amount}</li>
+            <li>
+              Card Details: {paymentReceipt.cardholderName} |{" "}
+              {paymentReceipt.cardNum} | {paymentReceipt.expiryDate} |{" "}
+              {paymentReceipt.cvv}
+            </li>
+          </ul>
+          {/* {JSON.stringify(paymentReceipt)} */}
         </div>
         <div>
           <h5>Shipment Receipt</h5>
