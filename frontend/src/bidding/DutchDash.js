@@ -101,8 +101,8 @@ function DutchDash() {
       );
       setTimerAmount(time);
       setTimer(true);
-      refreshPrice();
     }
+    refreshPrice();
   }, [biddingActive]);
 
   useEffect(() => {
