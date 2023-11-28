@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PaymentRepository extends CrudRepository<Payment, Integer> {
 
-	Payment findDistinctByUserIDAndCatalogItemID(int userID, int catalogItemID);
+	Payment findDistinctByUserIDAndCatalogItemIDAndCatalogItemType(int userID, int catalogItemID, String catalogItemType);
 
 }

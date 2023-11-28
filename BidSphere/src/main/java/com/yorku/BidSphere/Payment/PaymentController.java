@@ -31,14 +31,14 @@ public class PaymentController {
 
 	}
 
-	// Retrieve payment info in via UserID and ItemID
-	@GetMapping("Payment/getbyUserIDItemID")
-	public ResponseEntity<Payment> getPaymentByID(@RequestParam int userID, @RequestParam int itemID) {
+	// Retrieve payment info in via UserID and ItemID/Type
+	@GetMapping("/Payment/getbyUserIDItemID")
+	public ResponseEntity<Payment> getPaymentByID(@RequestParam int userID, @RequestParam int itemID, @RequestParam String itemType) {
 
-		if (userID == 0 | itemID == 0)
+		if (userID == 0 | itemID == 0 | itemType == null)
 			return new ResponseEntity<Payment>((Payment) null, HttpStatus.BAD_REQUEST);
 
-		Payment payment = paymentService.getPaymentByUserAndItem(userID, itemID);
+		Payment payment = paymentService.getPaymentByUserAndItem(userID, itemID, itemType);
 
 		if (payment == null)
 			return new ResponseEntity<Payment>(payment, HttpStatus.NOT_FOUND);
