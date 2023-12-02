@@ -31,8 +31,8 @@ public class PaymentService {
 		return null;
 	}
 
-	protected Payment getPaymentByUserAndItem(int UserID, int CatalogItemID) {
-		Payment payment = paymentRepository.findDistinctByUserIDAndCatalogItemID(UserID, CatalogItemID);
+	protected Payment getPaymentByUserAndItem(int UserID, int CatalogItemID, String CatalogItemType) {
+		Payment payment = paymentRepository.findDistinctByUserIDAndCatalogItemIDAndCatalogItemType(UserID, CatalogItemID, CatalogItemType);
 		return payment;
 	}
 
