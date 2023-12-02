@@ -1,7 +1,6 @@
 package com.bidSphere.BidSphereForwardBidding.Bid;
 
-import com.yorku.BidSphere.Catalog.CatalogController;
-import com.yorku.BidSphere.Catalog.CatalogItem;
+import com.bidSphere.BidSphereForwardBidding.Catalog.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
