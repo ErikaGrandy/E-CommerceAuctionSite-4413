@@ -12,6 +12,7 @@ public class Payment {
 	private @Id @GeneratedValue int paymentID;
 	private int userID;
 	private int catalogItemID;
+	private String catalogItemType;
 	private Double amount;
 
 	// Must be 16 digit and meet Luhn's formula.
@@ -43,6 +44,14 @@ public class Payment {
 
 	public void setCatalogItemID(int catalogItemID) {
 		this.catalogItemID = catalogItemID;
+	}
+
+	public String getCatalogItemType() {
+		return catalogItemType;
+	}
+
+	public void setCatalogItemType(String catalogItemType) {
+		this.catalogItemType = catalogItemType;
 	}
 
 	public Double getAmount() {
