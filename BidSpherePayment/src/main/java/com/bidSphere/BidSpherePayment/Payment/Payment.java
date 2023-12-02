@@ -1,10 +1,10 @@
-package com.yorku.BidSphere.Payment;
-
-import java.sql.Date;
+package com.bidSphere.BidSpherePayment.Payment;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+
+import java.sql.Date;
 
 @Entity
 public class Payment {

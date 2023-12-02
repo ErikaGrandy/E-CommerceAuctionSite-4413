@@ -1,4 +1,4 @@
-package com.yorku.BidSphere.Payment;
+package com.bidSphere.BidSpherePayment.Payment;
 
 import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
 import org.springframework.beans.factory.annotation.Autowired;

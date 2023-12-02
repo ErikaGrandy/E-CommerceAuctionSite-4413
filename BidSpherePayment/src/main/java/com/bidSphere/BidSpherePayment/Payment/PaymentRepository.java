@@ -1,4 +1,4 @@
-package com.yorku.BidSphere.Payment;
+package com.bidSphere.BidSpherePayment.Payment;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
