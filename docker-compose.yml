@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  userservice:
+    build: ./BidSphereUser
+    restart: on-failure
+    ports:
+      - 8082:8082
+
+  paymentservice:
+    build: ./BidSpherePayment
+    restart: on-failure
+    ports:
+      - 8083:8083
+
+  forwardbidding:
+    build: ./BidSphereForwardBidding
+    restart: on-failure
+    ports:
+      - 8081:8081
+
+  dutchbidding:
+    build: ./BidSphereDutchBidding
+    restart: on-failure
+    ports:
+      - 8085:8085
