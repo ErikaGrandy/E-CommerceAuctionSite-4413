@@ -61,7 +61,10 @@ public class UserController {
 	public ResponseEntity<User> createUser(@RequestBody User user) {
 		try {
 			String password = user.getPassword();
-			if (userService.checkExisting(user.getUserName()) || !userService.isPasswordValid(password)) {
+//			if (userService.checkExisting(user.getUserName()) || !userService.isPasswordValid(password)) {
+//				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//			}
+			if ( userService.checkExisting(user.getUserName()) ) {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			}
 			return new ResponseEntity<>(userService.create(user), HttpStatus.CREATED);
@@ -76,9 +79,9 @@ public class UserController {
 	public ResponseEntity<User> updateUser(@PathVariable int id, @RequestBody User user) {
 		try {
 			String password = user.getPassword();
-			if (!userService.isPasswordValid(password)) {
-				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-			}
+//			if (!userService.isPasswordValid(password)) {
+//				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//			}
 			userService.update(id, user);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (IllegalArgumentException e) {
