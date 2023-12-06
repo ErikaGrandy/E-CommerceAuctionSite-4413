@@ -37,18 +37,33 @@ const SignUp = () => {
     };
     console.log(data);
 
-    Axios.post(ENDPOINTS.USER.CREATE, data)
-      .then((res) => {
-        setShowSuccess(true);
-        setShowError(false);
+    if (
+      data.userName === "" ||
+      data.firstName === "" ||
+      data.lastName === "" ||
+      data.streetAddress === "" ||
+      data.streetNumber === 0 ||
+      data.city === "" ||
+      data.country === "" ||
+      data.postalCode === "" ||
+      data.password === "" ||
+      data.province === ""
+    ) {
+      setShowError(true);
+    } else {
+      Axios.post(ENDPOINTS.USER.CREATE, data)
+        .then((res) => {
+          setShowSuccess(true);
+          setShowError(false);
 
-        console.log("Server Response: " + res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowError(true);
-        setShowSuccess(false);
-      });
+          console.log("Server Response: " + res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+          setShowError(true);
+          setShowSuccess(false);
+        });
+    }
   };
 
   return (
@@ -60,8 +75,6 @@ const SignUp = () => {
         <Alert variant={"danger"}>
           Make sure all fields are filled out and password follows password
           requirements. <br />
-          Password Requirements: min 8 characters, should contain one lowercase,
-          uppercase and special character. <br />
           No 2 accounts can share the same username.
         </Alert>
       )}

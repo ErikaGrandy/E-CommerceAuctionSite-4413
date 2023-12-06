@@ -1,31 +1,41 @@
+const basePayment = "http://localhost:8083";
+const baseUser = "http://localhost:8082";
+const baseForward = "http://localhost:8081";
+const baseDutch = "http://localhost:8085";
+
+// const basePayment = "http://localhost:8080";
+// const baseUser = "http://localhost:8080";
+// const baseForward = "http://localhost:8080";
+// const baseDutch = "http://localhost:8080";
+
 const ENDPOINTS = {
   CATALOGUE: {
-    GETALLITEMS: "Catalog/getAll",
-    GETITEM: "/Catalog/get",
-    ADDITEM: "Catalog/add",
+    GETALLITEMS: baseForward + "/Catalog/getAll",
+    GETITEM: baseForward + "/Catalog/get",
+    ADDITEM: baseForward + "/Catalog/add",
   },
   DUTCHITEM: {
-    GETALLITEMS: "/DutchCatalog/getAll",
-    ADDITEM: "/DutchCatalog/add",
-    GETITEM: "/DutchCatalog/get",
-    DECREMENTPRICE: "/DutchCatalog/updatePrice",
+    GETALLITEMS: baseDutch + "/DutchCatalog/getAll",
+    ADDITEM: baseDutch + "/DutchCatalog/add",
+    GETITEM: baseDutch + "/DutchCatalog/get",
+    DECREMENTPRICE: baseDutch + "/DutchCatalog/updatePrice",
   },
   DUTCHBID: {
-    BUYITEM: "/DutchBid/buy",
+    BUYITEM: baseDutch + "/DutchBid/buy",
   },
   USER: {
-    VERIFY: "/Users/verifyUser",
-    CREATE: "/Users/createUser",
-    FORGOTPASSWORD: "/Users/forgotPassword",
+    VERIFY: baseUser + "/Users/verifyUser",
+    CREATE: baseUser + "/Users/createUser",
+    FORGOTPASSWORD: baseUser + "/Users/forgotPassword",
   },
   BID: {
-    GETBIDFROMCATID: "/Bid/getByCatalogue",
-    SENDBID: "/forwardAuction/send",
-    GETSTATUS: "/forwardAuction/getStatus",
+    GETBIDFROMCATID: baseForward + "/Bid/getByCatalogue",
+    SENDBID: baseForward + "/forwardAuction/send",
+    GETSTATUS: baseForward + "/forwardAuction/getStatus",
   },
   PAYMENT: {
-    ADDPAYMENT: "/Payment/Add",
-    CHECKPAYMENT: "Payment/getbyUserIDItemID",
+    ADDPAYMENT: basePayment + "/Payment/Add",
+    CHECKPAYMENT: basePayment + "/Payment/getbyUserIDItemID",
   },
 };
 

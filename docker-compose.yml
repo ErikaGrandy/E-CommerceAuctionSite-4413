@@ -24,3 +24,9 @@ services:
     restart: on-failure
     ports:
       - 8085:8085
+
+  frontend:
+    build: ./frontend
+    restart: on-failure
+    ports:
+      - 3000:3000

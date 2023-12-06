@@ -115,7 +115,7 @@ function App() {
               ))}
             {user != null && user.userName !== "" && (
               <Navbar.Text className="justify-content-end">
-                Signed in as: {user.userName}
+                Signed in as: {user.userName} | {user.id}
               </Navbar.Text>
             )}
           </Container>

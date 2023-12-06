@@ -35,6 +35,7 @@ const PaymentForm = ({ checkForPayment }) => {
             amount: totalAmount,
             userID: user.id,
             catalogItemID: auction.itemID,
+            catalogItemType: "Forward",
           }
         : {
             cardNum: cardNum,
@@ -43,7 +44,8 @@ const PaymentForm = ({ checkForPayment }) => {
             cvv: cvv,
             amount: totalAmount,
             userID: user.id,
-            catalogItemID: auction.itemID + 100,
+            catalogItemID: auction.itemID,
+            catalogItemType: "Dutch",
           };
 
     Axios.post(ENDPOINTS.PAYMENT.ADDPAYMENT, req)

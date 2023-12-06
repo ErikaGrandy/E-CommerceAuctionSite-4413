@@ -3,4 +3,5 @@ ARG JAR_FILE=target/*.jar
 COPY BidSphereForwardBidding-0.0.1-SNAPSHOT.jar app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
 
-# docker build -t bidsphereuser .
+# docker build -t bidsphereforward .
+# docker run -p 8081:8081 bidsphereforward

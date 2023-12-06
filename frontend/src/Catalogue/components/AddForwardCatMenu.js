@@ -30,12 +30,12 @@ function AddForwardCatMenu({ refresh, toggleRefresh }) {
     console.log(getFormJSON());
 
     if (
-      name == "" ||
-      description == "" ||
-      currentPrice == 0 ||
-      shippingCost == 0 ||
-      duration == 0 ||
-      shippingDuration == 0
+      name === "" ||
+      description === "" ||
+      currentPrice === 0 ||
+      shippingCost === 0 ||
+      duration === 0 ||
+      shippingDuration === 0
     ) {
       setShowError(true);
     } else {
