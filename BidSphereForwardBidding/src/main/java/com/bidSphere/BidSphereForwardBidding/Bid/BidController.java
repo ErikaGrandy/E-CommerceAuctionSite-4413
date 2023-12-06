@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
-@Validated
 @RestController
 public class BidController {
 

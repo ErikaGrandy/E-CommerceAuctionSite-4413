@@ -3,6 +3,11 @@ const baseUser = "http://localhost:8082";
 const baseForward = "http://localhost:8081";
 const baseDutch = "http://localhost:8085";
 
+// const basePayment = "http://localhost:8080";
+// const baseUser = "http://localhost:8080";
+// const baseForward = "http://localhost:8080";
+// const baseDutch = "http://localhost:8080";
+
 const ENDPOINTS = {
   CATALOGUE: {
     GETALLITEMS: baseForward + "/Catalog/getAll",
@@ -30,7 +35,7 @@ const ENDPOINTS = {
   },
   PAYMENT: {
     ADDPAYMENT: basePayment + "/Payment/Add",
-    CHECKPAYMENT: basePayment + "Payment/getbyUserIDItemID",
+    CHECKPAYMENT: basePayment + "/Payment/getbyUserIDItemID",
   },
 };
 

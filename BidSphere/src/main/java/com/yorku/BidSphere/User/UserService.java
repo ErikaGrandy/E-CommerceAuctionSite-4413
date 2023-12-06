@@ -39,10 +39,10 @@ public class UserService {
 
 	public User create(User user) {
 		String password = user.getPassword();
-		if (isPasswordValid(password)) {
+//		if (isPasswordValid(password)) {
 			return userRepository.save(user);
-		}
-		return null;
+//		}
+//		return null;
 	}
 
 	public void update(int id, User user) {
@@ -61,9 +61,9 @@ public class UserService {
 			userAttributes.setCountry(user.getCountry());
 
 			String updatePassword = user.getPassword();
-			if (isPasswordValid(updatePassword)) {
+//			if (isPasswordValid(updatePassword)) {
 				userAttributes.setPassword(updatePassword);
-			}
+//			}
 
 			userRepository.save(userAttributes);
 		}
@@ -99,7 +99,7 @@ public class UserService {
 
 	public User updatePassword(String username, int streetNumber, String newPassword) {
 		User user = userRepository.getUserByUserName(username);
-		if (user == null || user.getStreetNumber() != streetNumber || !isPasswordValid(newPassword)) {
+		if (user == null || user.getStreetNumber() != streetNumber) {
 			return null;
 		}
 		user.setPassword(newPassword);
