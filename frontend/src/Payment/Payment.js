@@ -13,8 +13,16 @@ const Payment = ({ updateAuction }) => {
   const checkForPayment = () => {
     const params =
       auction.auctionType === "Forward"
-        ? { userID: user.id, itemID: auction.itemID }
-        : { userID: user.id, itemID: auction.itemID + 100 };
+        ? {
+            userID: user.id,
+            itemID: auction.itemID,
+            itemType: auction.auctionType,
+          }
+        : {
+            userID: user.id,
+            itemID: auction.itemID,
+            itemType: auction.auctionType,
+          };
     Axios.get(ENDPOINTS.PAYMENT.CHECKPAYMENT, {
       params: params,
     })
